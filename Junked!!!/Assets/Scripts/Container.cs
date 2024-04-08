@@ -14,7 +14,7 @@ public class Container : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
@@ -25,6 +25,11 @@ public class Container : MonoBehaviour
         if(other.gameObject.CompareTag(color))
         {
             GameManager.Instance.GivePoint();
+            Destroy(other.gameObject);
+        }
+        else
+        {
+            GameManager.Instance.TakePoint();
             Destroy(other.gameObject);
         }
     }

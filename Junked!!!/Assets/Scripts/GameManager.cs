@@ -30,5 +30,13 @@ public class GameManager : MonoBehaviour
         score += 1;
         scoreText.text = "score: " + score.ToString();  
 
+    }   
+    
+    public void TakePoint()
+    {
+    
+        score -= 1;
+        scoreText.text = "score: " + score.ToString();  
+
     }
 }
