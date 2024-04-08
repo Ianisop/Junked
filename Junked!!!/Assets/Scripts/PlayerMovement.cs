@@ -4,30 +4,23 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private CharacterController controller;
     private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    public float playerSpeed = 2.0f;
-    private float jumpHeight = 1.0f;
-    private float gravityValue = -9.81f;
+    public float playerSpeed = 200.0f;
     private float hoz, vert;
+    public Rigidbody rb;
+
 
 
     private void Start()
     {
-        controller = gameObject.GetComponent<CharacterController>();
+       
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        groundedPlayer = controller.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0)
-        {
-            playerVelocity.y = 0f;
-        }
-
         hoz = Input.GetAxis("Horizontal");
         vert = Input.GetAxis("Vertical");
+
 
         Vector3 cameraForward = Camera.main.transform.forward;
         cameraForward.y = 0;
@@ -40,17 +33,14 @@ public class PlayerMovement : MonoBehaviour
         cameraRight *= hoz;
 
         Vector3 wantsMove = (cameraForward + cameraRight).normalized;
-        Debug.DrawRay(transform.position, wantsMove, Color.red);
 
-        controller.Move(wantsMove * Time.deltaTime * playerSpeed);
 
-        // Changes the height position of the player..
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
+        if (Input.anyKey)
         {
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+
+            rb.AddForce(wantsMove * playerSpeed);
         }
 
-        playerVelocity.y += gravityValue * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
+
     }
 }
