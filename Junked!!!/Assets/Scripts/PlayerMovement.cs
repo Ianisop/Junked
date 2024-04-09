@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float playerSpeed = 200.0f;
     private float hoz, vert;
     public Rigidbody rb;
+    
 
 
 
@@ -16,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
        
     }
 
-    void FixedUpdate()
+    void Update()
     {
         hoz = Input.GetAxis("Horizontal");
         vert = Input.GetAxis("Vertical");
@@ -34,12 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 wantsMove = (cameraForward + cameraRight).normalized;
 
+        transform.Translate(wantsMove * Time.deltaTime);
 
-        if (Input.anyKey)
-        {
-
-            rb.AddForce(wantsMove * playerSpeed);
-        }
 
 
     }
