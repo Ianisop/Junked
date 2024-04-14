@@ -1,24 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    static MainMenuManager instance;
+    private void Awake() { if (instance == null) instance = this; }
+
+    [SerializeField]
+    Animator MainMenuContainerAnimator;
+
+    [SerializeField]
+    string gameSceneName;
+    public void StartGame()
     {
-        
+        MainMenuContainerAnimator.SetBool("start", true);
+    }
+    public static void LoadGameScene()
+    {
+        SceneManager.LoadScene(instance.gameSceneName);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RequestMenuSwitch(string menuName)
     {
-        
-    }
-
-    public void LoadScene(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
+        switch (menuName.ToLower()) // could just use 'menuName' inside of '.SetBool(...)' but we may want edge cases in the future
+        {
+            case "main":
+                MainMenuContainerAnimator.SetBool("settings", false);
+                break;
+            case "settings":
+                MainMenuContainerAnimator.SetBool("settings", true);
+                break;
+        }
     }
 }
