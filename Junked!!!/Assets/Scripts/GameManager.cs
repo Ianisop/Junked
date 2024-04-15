@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public DragRigidbody dragger;
     public TMP_Text scoreText;
+    public TimerHandler _timerHandler;
 
     private void Awake()
     {
@@ -25,18 +26,5 @@ public class GameManager : MonoBehaviour
             
     }
 
-    public void GivePoint()
-    {
-        score += 1;
-        scoreText.text = "score: " + score.ToString();  
 
-    }   
-    
-    public void TakePoint()
-    {
-    
-        score -= 1;
-        scoreText.text = "score: " + score.ToString();  
-
-    }
 }

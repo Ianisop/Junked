@@ -8,6 +8,7 @@ public class Trash : MonoBehaviour
     public static Trash Instance;
     private Animator _animator;
     private Rigidbody rb;
+    public int size;
 
 
     public void Awake()
@@ -23,10 +24,10 @@ public class Trash : MonoBehaviour
 
     public void Pulse()
     {
-        
         GetComponent<BoxCollider>().enabled = true;
         rb.AddForce((transform.up + transform.forward) * 300);
         _animator.enabled = false;
+
 
     }
 }

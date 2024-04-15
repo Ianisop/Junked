@@ -24,12 +24,12 @@ public class Container : MonoBehaviour
     {
         if(other.gameObject.CompareTag(color))
         {
-            GameManager.Instance.GivePoint();
+
             Destroy(other.gameObject);
         }
         else
         {
-            GameManager.Instance.TakePoint();
+
             Destroy(other.gameObject);
         }
     }

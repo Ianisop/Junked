@@ -5,24 +5,23 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject[] trashPrefabs;
+    public GameObject trashPrefab;
     public Vector3 spawnPoint;
-    public float spawnTime;
-    public float next;
+    public Timer spawnerTimer;
 
     void Start()
     {
-        
+        GameManager.Instance._timerHandler.AddTimer(spawnerTimer, false);
     }
 
     void Update()
     {
-        next += Time.deltaTime;
-        if(next >= spawnTime)
+
+        if(spawnerTimer.isDone)
         {
-            int x = Random.Range(0, trashPrefabs.Length);
-            Spawn(x);    
-            next = 0;
+            int x = Random.Range(5, 10);
+            Spawn();    
+            
         }
     
 
@@ -30,14 +29,11 @@ public class Spawner : MonoBehaviour
 
 
 
-    public void Spawn(int cube)
+    public void Spawn()
     {
-
-        GameObject obj;
         
-        obj = trashPrefabs[cube];
        
-        Instantiate(obj, spawnPoint, Quaternion.identity);
+        Instantiate(trashPrefab, spawnPoint, Quaternion.identity);
         //transform.Translate(new Vector3(obj.transform.position.x + 10, obj.transform.position.y, obj.transform.position.z + 10) * 2);
          
         // obj.GetComponent<Rigidbody>().AddForce(transform.up);

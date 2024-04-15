@@ -53,7 +53,7 @@ public class CameraFollow : MonoBehaviour
             x = Mathf.LerpAngle(cameraRotationAngle, targetRotantionAngle, lerpRate * Time.deltaTime);
         }
 
-        y = ClampAngle(y, -15, 25);
+        y = ClampAngle(y, -15, 89);
         Quaternion rotation = Quaternion.Euler(y, x, 0);
 
         desireDistance -= Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime * ZoomRate * Mathf.Abs(desireDistance);

@@ -7,11 +7,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 playerVelocity;
     public float playerSpeed = 200.0f;
     private float hoz, vert;
-    public Rigidbody rb;
-    
-
-
-
+    public CharacterController _cc;
+   
     private void Start()
     {
        
@@ -35,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 wantsMove = (cameraForward + cameraRight).normalized;
 
-        transform.Translate(wantsMove * Time.deltaTime);
+        _cc.Move(wantsMove * Time.deltaTime * playerSpeed);
 
 
 
