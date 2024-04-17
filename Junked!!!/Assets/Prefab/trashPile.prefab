@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: -7109034233156243310}
   - component: {fileID: 2499596414375911668}
   m_Layer: 0
-  m_Name: trash_yellow
-  m_TagString: yellow
+  m_Name: trashPile
+  m_TagString: blue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7bd386a40d8244645bf8e63d13c76709, type: 2}
+  - {fileID: 2100000, guid: 0a83a7c98544af141bb638cfee9b974d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

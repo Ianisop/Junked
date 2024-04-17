@@ -20,8 +20,8 @@ public class Spawner : MonoBehaviour
         if(spawnerTimer.isDone)
         {
             int x = Random.Range(5, 10);
-            Spawn();    
-            
+            Spawn();
+            spawnerTimer.RestartTimer();
         }
     
 
