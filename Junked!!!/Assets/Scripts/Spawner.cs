@@ -12,6 +12,7 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         GameManager.Instance._timerHandler.AddTimer(spawnerTimer, false);
+        Spawn();
     }
 
     void Update()

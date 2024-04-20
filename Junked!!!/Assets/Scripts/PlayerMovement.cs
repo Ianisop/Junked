@@ -8,11 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float playerSpeed = 200.0f;
     private float hoz, vert;
     public CharacterController _cc;
-   
-    private void Start()
-    {
-       
-    }
+
 
     void Update()
     {

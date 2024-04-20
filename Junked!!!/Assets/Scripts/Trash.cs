@@ -24,7 +24,7 @@ public class Trash : MonoBehaviour
 
     public void Pulse()
     {
-        GetComponent<BoxCollider>().enabled = true;
+        GetComponent<SphereCollider>().enabled = true;
         rb.AddForce((transform.up + transform.forward) * 300);
         _animator.enabled = false;
 
