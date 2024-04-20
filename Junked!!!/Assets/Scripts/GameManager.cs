@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public DragRigidbody dragger;
     public TMP_Text scoreText;
     public TimerHandler _timerHandler;
-
+    public TMP_Text notificationText;
+    public CapsuleCollider playerColl;
     private void Awake()
     {
         if(Instance == null) Instance = this;
@@ -23,7 +24,13 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
-            
+        
+    }
+
+    public void PopUp(string text)
+    {
+         notificationText.text = text;  
+   
     }
 
 

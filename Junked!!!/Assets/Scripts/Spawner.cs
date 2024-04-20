@@ -18,13 +18,13 @@ public class Spawner : MonoBehaviour
     void Update()
     {
 
-        if(spawnerTimer.isDone)
+        if (spawnerTimer.isDone)
         {
             int x = Random.Range(5, 10);
             Spawn();
             spawnerTimer.RestartTimer();
         }
-    
+
 
     }
 
@@ -32,13 +32,13 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
-        
-       
+
+
         Instantiate(trashPrefab, spawnPoint, Quaternion.identity);
         //transform.Translate(new Vector3(obj.transform.position.x + 10, obj.transform.position.y, obj.transform.position.z + 10) * 2);
-         
+
         // obj.GetComponent<Rigidbody>().AddForce(transform.up);
-
-
     }
 }
+
+

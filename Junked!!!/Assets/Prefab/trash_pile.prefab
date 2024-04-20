@@ -53,6 +53,10 @@ PrefabInstance:
       value: trash_pile
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       propertyPath: m_TagString
       value: trash
       objectReference: {fileID: 0}
@@ -62,35 +66,25 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5141187661868533568}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -1104169900490543115}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       insertIndex: -1
       addedObject: {fileID: -4167995685955877180}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5411912261992315484}
+      addedObject: {fileID: 7975732147240327568}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6119069336932507033}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5313444053411441982}
   m_SourcePrefab: {fileID: 100100000, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
 --- !u!1 &8861423554622012820 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
   m_PrefabInstance: {fileID: 8519526351530295493}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5141187661868533568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8861423554622012820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d0dd2c448f457840867794f62ee9635, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: 0
 --- !u!54 &-1104169900490543115
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -140,8 +134,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!135 &5411912261992315484
-SphereCollider:
+--- !u!65 &7975732147240327568
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -156,8 +150,35 @@ SphereCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 1
-  m_Enabled: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2714037
-  m_Center: {x: 0.012993634, y: -0.0031602986, z: 0.27405453}
+  m_Size: {x: 0.54088545, y: 0.5193226, z: 0.61252564}
+  m_Center: {x: 0.012993641, y: -0.003160284, z: 0.30891365}
+--- !u!114 &6119069336932507033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861423554622012820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6cfe2f629e6eae478939596635cab4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 0
+--- !u!114 &-5313444053411441982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8861423554622012820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a5456ab7f2a534ea173b7776a7f51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Instance: {fileID: 0}
+  notification: Press "E" To Cut
