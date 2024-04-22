@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface IInteractableObserver
+{
+    void Interact();
+
+}
+
+
 public class Interactable : MonoBehaviour
 {
     public Interactable Instance;
@@ -14,11 +21,6 @@ public class Interactable : MonoBehaviour
         {
             Instance = this;
         }
-    }
-
-    public void Call(string ans)
-    {
-        
     }
 
 

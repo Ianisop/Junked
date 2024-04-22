@@ -168,6 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 0
+  trashPieces:
+  - {fileID: 4465076281007812411, guid: 05773028e48914842b15a1097d5239ab, type: 3}
 --- !u!114 &-5313444053411441982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,3 +184,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Instance: {fileID: 0}
   notification: Press "E" To Cut
+  actionKey: 101

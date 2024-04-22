@@ -5,42 +5,70 @@ using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Vector3 playerVelocity;
-    public float playerSpeed = 200.0f;
-    private float hoz, vert;
-    public CharacterController _cc;
+    public float walkingSpeed = 7.5f;
+    public float runningSpeed = 11.5f;
+    public float jumpSpeed = 8.0f;
+    public float gravity = 20.0f;
+    public Camera playerCamera;
+    public float lookSpeed = 2.0f;
+    public float lookXLimit = 45.0f;
 
-    public Vector3 wishDirection;
-    public Vector3 lastWishDirection;
-    public float turnRate = 0.1f; 
-    private float turnSmoothVelocity; 
+    CharacterController characterController;
+    Vector3 moveDirection = Vector3.zero;
+    float rotationX = 0;
+
+    [HideInInspector]
+    public bool canMove = true;
+
+    void Start()
+    {
+        characterController = GetComponent<CharacterController>();
+
+        // Lock cursor
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
+    }
 
     void Update()
     {
-        hoz = Input.GetAxis("Horizontal");
-        vert = Input.GetAxis("Vertical");
+        // We are grounded, so recalculate move direction based on axes
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
 
-        if (vert != 0 || hoz != 0)
+        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+
+        float curSpeedX = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Vertical") : 0;
+        float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
+
+        float movementDirectionY = moveDirection.y;
+
+        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+        if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
-            Vector3 cameraForward = Camera.main.transform.forward;
-            cameraForward.y = 0;
-            cameraForward.Normalize();
-            Vector3 cameraRight = Camera.main.transform.right;
-            cameraRight.y = 0;
-            cameraRight.Normalize();
+            moveDirection.y = jumpSpeed;
+        }
+        else
+        {
+            moveDirection.y = movementDirectionY;
+        }
 
-            cameraForward *= vert;
-            cameraRight *= hoz;
 
-            wishDirection = (cameraForward + cameraRight).normalized;
+        if (!characterController.isGrounded)
+        {
+            moveDirection.y -= gravity * Time.deltaTime;
+        }
 
-            // Smooth turning if moving forward or sideways
+        // Move the controller
+        characterController.Move(moveDirection * Time.deltaTime);
 
-            float targetAngle = Mathf.Atan2(wishDirection.x, wishDirection.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnRate);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            _cc.Move(wishDirection * Time.deltaTime * playerSpeed);
+        // Player and Camera rotation
+        if (canMove)
+        {
+            rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
     }
 }

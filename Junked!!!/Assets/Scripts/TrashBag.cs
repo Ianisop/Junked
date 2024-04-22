@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrashBag : MonoBehaviour
+public class TrashBag : MonoBehaviour, IInteractableObserver
 {
-    public int size; // the number of times it can give out trash
+    public int size; // the number of times it can give out tras
+    public GameObject[] trashPieces;
     
 
     private void Start()
@@ -19,6 +20,28 @@ public class TrashBag : MonoBehaviour
         GetComponent<Animator>().enabled = false;
         GetComponent<Rigidbody>().AddForce(transform.forward * 200f);
         
+    }
+
+
+    public void Cut()
+    {
+        if(size <= 0) 
+        {
+            Destroy(this.gameObject);
+            
+        }
+        else
+        {
+            int x = Random.Range(0, trashPieces.Length);
+            var obj = Instantiate(trashPieces[x],transform.position, transform.rotation);
+            obj.GetComponent<Rigidbody>().AddForce(transform.up * 200f);
+            size -= 1;
+        }
+    }
+
+    public void Interact()
+    {
+        Cut();
     }
     
 }
