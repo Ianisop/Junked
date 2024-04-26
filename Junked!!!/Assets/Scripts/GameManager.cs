@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public TimerHandler _timerHandler;
     public TMP_Text notificationText;
     public CapsuleCollider playerColl;
+
+
     private void Awake()
     {
         if(Instance == null) Instance = this;
@@ -32,6 +34,5 @@ public class GameManager : MonoBehaviour
          notificationText.text = text;  
    
     }
-
 
 }

@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.92
+      value: 8.937
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.938
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.59
+      value: -0.431
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       propertyPath: m_Name
-      value: trash_pile
+      value: TrashBag
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       propertyPath: m_TagString
@@ -67,9 +67,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1104169900490543115}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -4167995685955877180}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0053e5654343ab749a8b5bb16e473274, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7975732147240327568}
@@ -112,28 +109,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!95 &-4167995685955877180
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8861423554622012820}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f317943c415a13b4e8909c4acc476675, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!65 &7975732147240327568
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -167,9 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6cfe2f629e6eae478939596635cab4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 0
-  trashPieces:
-  - {fileID: 4465076281007812411, guid: 05773028e48914842b15a1097d5239ab, type: 3}
+  trashPieces: []
 --- !u!114 &-5313444053411441982
 MonoBehaviour:
   m_ObjectHideFlags: 0

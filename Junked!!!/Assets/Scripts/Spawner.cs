@@ -7,37 +7,19 @@ public class Spawner : MonoBehaviour
 {
     public GameObject trashPrefab;
     public Vector3 spawnPoint;
-    public Timer spawnerTimer;
+
 
     void Start()
     {
-        GameManager.Instance._timerHandler.AddTimer(spawnerTimer, false);
-        Spawn();
-    }
 
-    void Update()
-    {
-
-        if (spawnerTimer.isDone)
-        {
-            int x = Random.Range(5, 10);
-            Spawn();
-            spawnerTimer.RestartTimer();
-        }
-
-
+        Spawn(200);
     }
 
 
-
-    public void Spawn()
+    public void Spawn(int amount)
     {
-
-
         Instantiate(trashPrefab, spawnPoint, Quaternion.identity);
-        //transform.Translate(new Vector3(obj.transform.position.x + 10, obj.transform.position.y, obj.transform.position.z + 10) * 2);
 
-        // obj.GetComponent<Rigidbody>().AddForce(transform.up);
     }
 }
 

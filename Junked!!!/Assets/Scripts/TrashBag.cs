@@ -1,47 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TrashBag : MonoBehaviour, IInteractableObserver
 {
-    public int size; // the number of times it can give out tras
+    Inventory inventory;
     public GameObject[] trashPieces;
-    
 
-    private void Start()
+    public void Awake()
     {
-        size = Random.Range(1, 5);
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    public void Pulse()
-    {
-
-        GetComponent<BoxCollider>().enabled = true;
-        GetComponent<Animator>().enabled = false;
-        GetComponent<Rigidbody>().AddForce(transform.forward * 200f);
-        
-    }
 
 
     public void Cut()
     {
-        if(size <= 0) 
+        if(inventory.inventorySlots.Count <= 0) 
         {
             Destroy(this.gameObject);
             
         }
         else
         {
-            int x = Random.Range(0, trashPieces.Length);
-            var obj = Instantiate(trashPieces[x],transform.position, transform.rotation);
-            obj.GetComponent<Rigidbody>().AddForce(transform.up * 200f);
-            size -= 1;
+            //spawn item from list
         }
     }
 
     public void Interact()
     {
         Cut();
+
     }
     
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Interactor : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Interactor : MonoBehaviour
     List<IInteractableObserver> interactableObservers = new List<IInteractableObserver>();
     public Material outlineMat;
     Material oldMat; // Store the original material
+    GameObject currentTarget;
 
     void Update()
     {
@@ -22,6 +24,7 @@ public class Interactor : MonoBehaviour
                 popUp = true;
                 interactable = hit.collider.gameObject.GetComponent<Interactable>();
                 MeshRenderer meshRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
+                currentTarget = hit.collider.gameObject;
 
                 // Store the original material if it's not already set
                 if (meshRenderer.sharedMaterial != outlineMat)
@@ -30,13 +33,21 @@ public class Interactor : MonoBehaviour
                     meshRenderer.sharedMaterial = outlineMat; // Apply the outline material
                 }
 
-                GameManager.Instance.PopUp(interactable.notification);
+
+                if(currentTarget.GetComponent<TrashBag>() != null && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Home"))
+                {
+                    GameManager.Instance.PopUp(interactable.notification);
+                }
+                
 
                 // Register the interactable object with the Interactor
                 if (!interactableObservers.Contains(interactable.gameObject.GetComponent<IInteractableObserver>()))
                 {
                     interactableObservers.Add(interactable.gameObject.GetComponent<IInteractableObserver>());
                 }
+
+
+
             }
         }
         else
@@ -49,6 +60,7 @@ public class Interactor : MonoBehaviour
             }
 
             GameManager.Instance.PopUp(" ");
+            currentTarget = null;
             popUp = false;
         }
 
