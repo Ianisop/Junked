@@ -1,5 +1,6 @@
 
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Camera playerCamera;
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
+
 
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
@@ -69,6 +71,12 @@ public class PlayerMovement : MonoBehaviour
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+        }
+        
+        if(GameManager.Instance.dragger.selectedRigidbody == GameManager.Instance.trashBag)
+        {
+            runningSpeed -= GameManager.Instance.trashBag.GetComponent<TrashBag>().totalWeight / 10;
+            walkingSpeed -= GameManager.Instance.trashBag.GetComponent<TrashBag>().totalWeight / 15;
         }
     }
 }

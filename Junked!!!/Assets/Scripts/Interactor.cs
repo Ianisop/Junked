@@ -8,7 +8,6 @@ public class Interactor : MonoBehaviour
     public float range;
     bool popUp;
     Interactable interactable;
-    List<IInteractableObserver> interactableObservers = new List<IInteractableObserver>();
     public Material outlineMat;
     Material oldMat; // Store the original material
     GameObject currentTarget;
@@ -19,11 +18,12 @@ public class Interactor : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, range))
         {
-            if (!hit.collider.gameObject.CompareTag("Ground"))
+            if (!hit.collider.gameObject.CompareTag("Ground")&& interactable == null)
             {
                 popUp = true;
                 interactable = hit.collider.gameObject.GetComponent<Interactable>();
                 MeshRenderer meshRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
+
                 currentTarget = hit.collider.gameObject;
 
                 // Store the original material if it's not already set
@@ -33,20 +33,8 @@ public class Interactor : MonoBehaviour
                     meshRenderer.sharedMaterial = outlineMat; // Apply the outline material
                 }
 
-
-                if(currentTarget.GetComponent<TrashBag>() != null && SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Home"))
-                {
-                    GameManager.Instance.PopUp(interactable.notification);
-                }
-                
-
-                // Register the interactable object with the Interactor
-                if (!interactableObservers.Contains(interactable.gameObject.GetComponent<IInteractableObserver>()))
-                {
-                    interactableObservers.Add(interactable.gameObject.GetComponent<IInteractableObserver>());
-                }
-
-
+                 GameManager.Instance.PopUp(interactable.notification);
+               
 
             }
         }
@@ -58,7 +46,6 @@ public class Interactor : MonoBehaviour
                 interactable.GetComponent<MeshRenderer>().sharedMaterial = oldMat;
                 interactable = null; // Reset interactable reference
             }
-
             GameManager.Instance.PopUp(" ");
             currentTarget = null;
             popUp = false;
@@ -66,11 +53,9 @@ public class Interactor : MonoBehaviour
 
         if (popUp && Input.GetKeyDown(interactable.actionKey))
         {
-            // Notify all registered interactable objects to perform their actions
-            foreach (var observer in interactableObservers)
-            {
-                observer.Interact();
-            }
+
+            interactable.GetComponent<IInteractableObserver>().Interact();
+
         }
     }
 }

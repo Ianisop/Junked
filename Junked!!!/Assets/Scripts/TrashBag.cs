@@ -5,33 +5,74 @@ using UnityEngine.SceneManagement;
 
 public class TrashBag : MonoBehaviour, IInteractableObserver
 {
-    Inventory inventory;
     public GameObject[] trashPieces;
-
+    UnityEngine.SceneManagement.Scene oldScene;
+    public bool isOpen;
+    public int totalWeight;
+    public List<Trash> inventory = new List<Trash>();
+    Color debugColor;
     public void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        isOpen = false;
     }
 
-
-
-    public void Cut()
+    public void Start()
     {
-        if(inventory.inventorySlots.Count <= 0) 
+        oldScene = SceneManager.GetActiveScene();
+    }
+
+    public void Update()
+    {
+        if (oldScene != SceneManager.GetActiveScene())
         {
-            Destroy(this.gameObject);
+            oldScene = SceneManager.GetActiveScene();
+            transform.position = new Vector3(0,2,0);
             
         }
-        else
+
+        print(GetComponent<Rigidbody>().velocity.sqrMagnitude);
+        debugColor = Color.red;
+
+        if(transform.forward.y < -0.8)
         {
-            //spawn item from list
+            debugColor = Color.green;
+            if (isOpen && GetComponent<Rigidbody>().velocity.sqrMagnitude >= 1.2 && inventory.Count > 0)
+            {
+                RemoveItem();
+            }
         }
+
     }
+
+    void OnDrawGizmos()
+    {
+        Debug.DrawLine(transform.position, transform.position + transform.forward, debugColor);
+    }
+
+
 
     public void Interact()
     {
-        Cut();
+        isOpen = !isOpen;
 
     }
-    
+
+    public void AddItem(Trash item)
+    {
+        totalWeight += item.weight;
+        inventory.Add(item);
+    }
+
+    public void RemoveItem()
+    {
+        Trash trash = inventory[inventory.Count - 1];
+        totalWeight -= trash.weight;
+        inventory.Remove(inventory[inventory.Count - 1]);
+    }
+
+
+
+
+
 }
