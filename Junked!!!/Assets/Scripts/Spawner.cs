@@ -9,8 +9,7 @@ public class Spawner : MonoBehaviour
     public GameObject[] trashPrefabs;
     Vector3 spawnPoint;
     Mesh mesh;
-    Vector3[] verts;
-    int[] ids;
+
 
     void Start()
     {

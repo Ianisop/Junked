@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028522, g: 0.22571555, b: 0.30692446, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1967,6 +1967,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 498749312811785387, guid: b4936a97e2de6a04b972a2e1039b6160, type: 3}
+      propertyPath: notification
+      value: ' '
+      objectReference: {fileID: 0}
     - target: {fileID: 7212603701351319949, guid: b4936a97e2de6a04b972a2e1039b6160, type: 3}
       propertyPath: m_Name
       value: Cardboard

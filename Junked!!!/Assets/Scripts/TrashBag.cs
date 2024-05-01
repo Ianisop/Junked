@@ -63,15 +63,22 @@ public class TrashBag : MonoBehaviour, IInteractableObserver
     {
         totalWeight += item.weight;
         inventory.Add(item);
+        
+        item.gameObject.SetActive(false);
     }
 
     public void RemoveItem()
     {
         Trash trash = inventory[inventory.Count - 1];
-        totalWeight -= trash.weight;
-        Instantiate(trash.gameObject, transform);
-        trash.gameObject.AddComponent<Rigidbody>();
-        inventory.Remove(trash);
+       
+        if(trash)
+        {
+            totalWeight -= trash.GetComponent<Trash>().weight;
+            trash.transform.position = transform.position;
+            trash.gameObject.SetActive(false);
+        }
+        print("no trash");
+
     }
 
 

@@ -38,7 +38,7 @@ public class Trash : MonoBehaviour, IInteractableObserver
         if (GameManager.Instance.trashBag.GetComponent<TrashBag>().isOpen && Vector3.Distance(this.transform.position, GameManager.Instance.trashBag.transform.position) <= 1 && GameManager.Instance.dragger.selectedRigidbody != GameManager.Instance.trashBag.GetComponent<Rigidbody>())
         {
             GameManager.Instance.trashBag.GetComponent<TrashBag>().AddItem(this);
-            Destroy(this.gameObject);
+            
         }
     }
 

@@ -18,7 +18,7 @@ public class DragRigidbody : MonoBehaviour
     public Material outlineMaterial;
     float rotateSpeed = 2;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         targetCamera = Camera.main;
@@ -77,7 +77,7 @@ public class DragRigidbody : MonoBehaviour
     void FixedUpdate()
     {
         mousePositionOffset = targetCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, selectionDistance)) - originalScreenTargetPosition;
-        print(mousePositionOffset);
+        //rint(mousePositionOffset);
         if (selectedRigidbody && Vector3.Distance(selectedRigidbody.transform.position, transform.position) <= pickUpRadius && !Input.GetKey(KeyCode.R))
         {
             MoveRigidbody();
@@ -125,7 +125,7 @@ public class DragRigidbody : MonoBehaviour
         GameManager.Instance.playerColl.gameObject.GetComponent<PlayerMovement>().enabled = false;
 
         oldMousePos = Input.mousePosition;
-        print(mouseDelta);
+       // print(mouseDelta);
     }
 
     void MoveRigidbody()
