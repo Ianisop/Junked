@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028522, g: 0.22571555, b: 0.30692446, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -829,7 +829,7 @@ MonoBehaviour:
   forceAmount: 500
   selectedRigidbody: {fileID: 0}
   selectionDistance: 0
-  pickUpRadius: 2
+  pickUpRadius: 5
   outlineMaterial: {fileID: 2100000, guid: 47fc2a2b898531341a4234df7467b602, type: 2}
 --- !u!114 &784210821
 MonoBehaviour:
@@ -2192,9 +2192,8 @@ MonoBehaviour:
     name: 
     isDone: 1
     active: 0
-  trashBag: {fileID: 916466203}
-  player: {fileID: 784210817}
   timerText: {fileID: 1469303990}
+  isInJunkyard: 0
 --- !u!65 &1962696818
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -56,7 +56,8 @@ public class Transporter : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             timer.StopTimer();
-    
+
+            timerText.text = " ";
         }
     }
 }

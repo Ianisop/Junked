@@ -31,7 +31,8 @@ public class TrashBag : MonoBehaviour, IInteractableObserver
             
         }
 
-        print(GetComponent<Rigidbody>().velocity.sqrMagnitude);
+       // print(GetComponent<Rigidbody>().velocity.sqrMagnitude);
+
         debugColor = Color.red;
 
         if(transform.forward.y < -0.8)
@@ -68,7 +69,9 @@ public class TrashBag : MonoBehaviour, IInteractableObserver
     {
         Trash trash = inventory[inventory.Count - 1];
         totalWeight -= trash.weight;
-        inventory.Remove(inventory[inventory.Count - 1]);
+        Instantiate(trash.gameObject, transform);
+        trash.gameObject.AddComponent<Rigidbody>();
+        inventory.Remove(trash);
     }
 
 
