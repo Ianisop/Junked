@@ -14,6 +14,7 @@ public class Interactor : MonoBehaviour
 
     void Update()
     {
+        return;
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit, range))

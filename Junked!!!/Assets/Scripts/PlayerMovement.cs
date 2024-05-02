@@ -73,10 +73,6 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
         
-        if(GameManager.Instance.dragger.selectedRigidbody == GameManager.Instance.trashBag)
-        {
-            runningSpeed -= GameManager.Instance.trashBag.GetComponent<TrashBag>().totalWeight / 10;
-            walkingSpeed -= GameManager.Instance.trashBag.GetComponent<TrashBag>().totalWeight / 15;
-        }
+
     }
 }
