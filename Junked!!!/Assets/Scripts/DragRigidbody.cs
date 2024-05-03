@@ -17,6 +17,7 @@ public class DragRigidbody : MonoBehaviour
     Material originalMaterial;
     public Material outlineMaterial;
     float rotateSpeed = 2;
+    public LayerMask layerMask;
 
 
     void Start()
@@ -97,7 +98,7 @@ public class DragRigidbody : MonoBehaviour
     {
         RaycastHit hitInfo = new RaycastHit();
         Ray ray = targetCamera.ScreenPointToRay(Input.mousePosition);
-        bool hit = Physics.Raycast(ray, out hitInfo);
+        bool hit = Physics.Raycast(ray, out hitInfo, layerMask);
         if (hit)
         {
             if (hitInfo.collider.gameObject.GetComponent<Rigidbody>())

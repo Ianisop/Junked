@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public int score;
     public static GameManager Instance;
+    
     public DragRigidbody dragger;
     public TimerHandler _timerHandler;
     public TMP_Text notificationText;

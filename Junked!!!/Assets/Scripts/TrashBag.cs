@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TrashBag : MonoBehaviour, IInteractableObserver
+public class TrashBag : MonoBehaviour
 {
     public GameObject[] trashPieces;
     UnityEngine.SceneManagement.Scene oldScene;
@@ -11,6 +11,7 @@ public class TrashBag : MonoBehaviour, IInteractableObserver
     public int totalWeight;
     public List<Trash> inventory = new List<Trash>();
     Color debugColor;
+    public PopUp popUp;
     public void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -77,7 +78,7 @@ public class TrashBag : MonoBehaviour, IInteractableObserver
             trash.transform.position = transform.position;
             trash.gameObject.SetActive(false);
         }
-        print("no trash");
+
 
     }
 
