@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public int score;
     public static GameManager Instance;
     public DragRigidbody dragger;
-    public TMP_Text scoreText;
     public TimerHandler _timerHandler;
     public TMP_Text notificationText;
     public CapsuleCollider playerColl;
@@ -37,4 +36,11 @@ public class GameManager : MonoBehaviour
    
     }
 
+    public int UpdateQuota(float difficulty, int day)
+    {
+        // Difficulty should be between 1.001 and 1.100
+        float currentQuota = Mathf.Pow(difficulty, day);
+
+        return (int)Mathf.Round(currentQuota);
+    }
 }
