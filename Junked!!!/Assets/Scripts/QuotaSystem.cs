@@ -30,7 +30,7 @@ public class QuotaSystem : MonoBehaviour
             // Day can be changed to each time quota is fulfilled
             day += 1f;
             // Math formula from Lethal Company
-            currentQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty)* (Random.Range(0,1) + 1);
+            currentQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty)* (Random.Range(0, 0.25f) + 1);
             
 
         }
