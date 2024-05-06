@@ -22,7 +22,7 @@ public class LightingManager : MonoBehaviour
         // but still update if variable is changed
         if (Application.isPlaying)
         {
-            TimeOfDay += Time.deltaTime / 60; // Make 
+            TimeOfDay += Time.deltaTime / 60;
             TimeOfDay %= 24; // Modulus to ensure time always stays between 0-24. Makes it like the clock
             
             if (TimeOfDay >= 17) // Restarts the day if is has passed more than "17 o'clock"
@@ -38,7 +38,6 @@ public class LightingManager : MonoBehaviour
             UpdateLighting(TimeOfDay / 24f);
         }
     }
-
 
     private void UpdateLighting(float timePercent)
     {
