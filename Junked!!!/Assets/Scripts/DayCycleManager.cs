@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class LightingManager : MonoBehaviour
+public class DayCycleManager : MonoBehaviour
 {
     //Scene References
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPreset Preset;
+    [SerializeField] private Animator clockAnimator;
+    public QuotaSystem quotaSystem;
+
     //Variables
     [SerializeField, Range(0, 24)] private float TimeOfDay;
-    [SerializeField] private Animator clockAnimator;
     [SerializeField] private float timeElapsed = 0;
     public float startTime = 9f;
+    public int day = 0;
+
 
     private void Awake()
     {
-        TimeOfDay = 9;
+        TimeOfDay = startTime;
+        day = 1;
     }
 
     private void Update()
@@ -39,10 +44,19 @@ public class LightingManager : MonoBehaviour
             print("Day Resetting");
             TimeOfDay = startTime;
             timeElapsed = 0;
+            day += 1;
+            quotaSystem.UpdateQuota(day);
+        }
+
+        if (Input.GetKeyDown("9"))
+        {
+            // Day can be changed to each time quota is fulfilled
+            day += 1;
         }
 
         UpdateLighting(TimeOfDay / 24f);
     }
+
 
     private void UpdateLighting(float timePercent)
     {
