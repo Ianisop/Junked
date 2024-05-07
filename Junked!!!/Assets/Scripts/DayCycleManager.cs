@@ -17,6 +17,7 @@ public class DayCycleManager : MonoBehaviour
     public float startTime = 9f;
     public int day = 0;
 
+    [SerializeField] bool bypassReset = false;
 
     private void Awake()
     {
@@ -38,7 +39,7 @@ public class DayCycleManager : MonoBehaviour
         clockAnimator.SetFloat("minuteHand", ((timeElapsed % 60) / 60));
         clockAnimator.SetFloat("hourHand", ((TimeOfDay - startTime) / 8f));
 
-        if (TimeOfDay >= 17) // Restarts the day if is has passed more than "17 o'clock"
+        if (!bypassReset && TimeOfDay >= 17) // Restarts the day if is has passed more than "17 o'clock"
         {
             print("Day Resetting");
             TimeOfDay = startTime;
