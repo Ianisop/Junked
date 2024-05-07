@@ -30,8 +30,7 @@ public class DayCycleManager : MonoBehaviour
         if (Preset == null)
             return;
 
-        // When game plays time will run, otherwise time will stand still
-        // but still update if variable is changed
+
         TimeOfDay += Time.deltaTime / 60;
         TimeOfDay %= 24; // Modulus to ensure time always stays between 0-24. Makes it like the clock
 
@@ -48,9 +47,9 @@ public class DayCycleManager : MonoBehaviour
             quotaSystem.UpdateQuota(day);
         }
 
+        // Ups the day by 1 for debugging
         if (Input.GetKeyDown("9"))
         {
-            // Day can be changed to each time quota is fulfilled
             day += 1;
         }
 
@@ -60,11 +59,11 @@ public class DayCycleManager : MonoBehaviour
 
     private void UpdateLighting(float timePercent)
     {
-        //Set ambient and fog based on time ingame. This is a percentage in decimals from 0-1
+        // Set ambient and fog based on time ingame. This is a percentage in decimals from 0-1
         RenderSettings.ambientLight = Preset.AmbientColor.Evaluate(timePercent);
         RenderSettings.fogColor = Preset.FogColor.Evaluate(timePercent);
 
-        //If the directional light is set then rotate and set it's color
+        // If the directional light is set then rotate and set it's color
         if (DirectionalLight != null)
         {
             DirectionalLight.color = Preset.DirectionalColor.Evaluate(timePercent);
