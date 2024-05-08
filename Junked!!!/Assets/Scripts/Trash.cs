@@ -21,6 +21,8 @@ public class Trash : MonoBehaviour
     public static Trash Instance;
     public TrashType trashType;
     public float cleanliness;
+    public float CO2PrKg;
+    public float moneyValue;
     public ParticleSystem particles;
     public int weight;
     public PopUp popUp;

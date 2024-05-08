@@ -31,27 +31,34 @@ public class DayCycleManager : MonoBehaviour
         if (Preset == null)
             return;
 
-
-        TimeOfDay += Time.deltaTime / 60;
+        TimeOfDay += Time.deltaTime / 60; // Divides by 60 so 1 sec irl = 1 min in game
         TimeOfDay %= 24; // Modulus to ensure time always stays between 0-24. Makes it like the clock
 
-        timeElapsed += Time.deltaTime;
+        timeElapsed += Time.deltaTime; // Is needed for minutehand
         clockAnimator.SetFloat("minuteHand", ((timeElapsed % 60) / 60));
         clockAnimator.SetFloat("hourHand", ((TimeOfDay - startTime) / 8f));
 
-        if (!bypassReset && TimeOfDay >= 17) // Restarts the day if is has passed more than "17 o'clock"
+        if (!bypassReset && TimeOfDay >= 17 && quotaSystem.CheckQuota()) // Restarts the day if is has passed more than "17 o'clock"
         {
             print("Day Resetting");
             TimeOfDay = startTime;
             timeElapsed = 0;
             day += 1;
+            // If quota met, update to next day
             quotaSystem.UpdateQuota(day);
         }
+        else
+        {
+            // You lose the game
+            /////////////// NOT DONE
+            print("your cooked bruh");
+        }
+            
 
-        // Ups the day by 1 for debugging
+        // Ups time/day for debugging
         if (Input.GetKeyDown("9"))
         {
-            day += 1;
+            TimeOfDay += 1;
         }
 
         UpdateLighting(TimeOfDay / 24f);
