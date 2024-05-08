@@ -17,17 +17,22 @@ public class PopUp : MonoBehaviour
         this.animator = this.GetComponent<Animator>();
         this.canvas = this.GetComponentInChildren<Canvas>();
         this.text = this.GetComponentInChildren<TextMeshProUGUI>();
+        bool printPopup = false;
 
-        if(animator && canvas && text)
+        if (printPopup) // Added this so it doesn't print every single time a prefab is on scene
         {
-            print("setup done" + gameObject.name);
-           
+            if (animator && canvas && text)
+            {
+                print("setup done" + gameObject.name);
+
+            }
+            else
+            {
+                print("Something broke: " + animator + canvas + text);
+
+            }
         }
-        else
-        {
-            print("Something broke: " + animator + canvas + text);
-            
-        }
+        
     }
 
 }

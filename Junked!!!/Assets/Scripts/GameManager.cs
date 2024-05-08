@@ -36,12 +36,4 @@ public class GameManager : MonoBehaviour
          notificationText.text = text;  
    
     }
-
-    public int UpdateQuota(float difficulty, int day)
-    {
-        // Difficulty should be between 1.001 and 1.100
-        float currentQuota = Mathf.Pow(difficulty, day);
-
-        return (int)Mathf.Round(currentQuota);
-    }
 }
