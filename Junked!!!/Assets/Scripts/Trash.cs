@@ -21,8 +21,8 @@ public class Trash : PickUp
     public static Trash Instance;
     public TrashType trashType;
     public float cleanliness;
-    public float CO2PrKg;
-    public float moneyValue;
+    public int CO2PrKg;
+    public int moneyValue;
     public ParticleSystem particles;
     public int weight;
     public PopUp popUp;
