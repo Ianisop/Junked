@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -22,9 +24,16 @@ public class ScrapSpawner : MonoBehaviour
     [SerializeField] Vector2 m_seedOffset = Vector2.zero;
     [SerializeField] GameObject m_scrapSpawnMeshObject;
     Mesh m_scrapSpawnMesh;
-    [SerializeField] CustomRenderTexture m_heatRenderTexture;
     [SerializeField] Material m_heatMaterial;
     [SerializeField] bool m_bypassRandomization = false;
+    [SerializeField] bool m_itemhax = false;
+
+
+    int m_slowPopulationIndex = 0;
+    [SerializeField] bool m_populateOverTime = true;
+    [SerializeField] bool m_hasPopulatedSpawns = true;
+
+    [SerializeField] bool m_manualPopulationStart = true;
 
     void Start()
     {
@@ -32,7 +41,17 @@ public class ScrapSpawner : MonoBehaviour
         InitRandom(m_seed);
         RandomizeHeatmap();
         GenerateScrapSpawns();
-        PopulateSpawns();
+        if (!m_manualPopulationStart)
+            PopulateSpawns();
+
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+            m_hasPopulatedSpawns = false;
+
+        if (!m_hasPopulatedSpawns)
+            PopulateNextSpawn();
     }
 
     public void InitRandom(int seed = 0)
@@ -49,7 +68,7 @@ public class ScrapSpawner : MonoBehaviour
         if (m_bypassRandomization) return;
         m_seedOffset = m_seedOffset.normalized * ((m_seed % 10) + 10);
 
-        m_heatRenderTexture.material.SetVector("_Offset", new Vector4(m_seedOffset.x, m_seedOffset.y, 0, 0));
+        m_heatMaterial.SetVector("_Offset", new Vector4(m_seedOffset.x, m_seedOffset.y, 0, 0));
     }
 
     public void CleanScrap()
@@ -62,11 +81,21 @@ public class ScrapSpawner : MonoBehaviour
         m_spawnLocations.Clear();
     }
 
+    //public void Update()
+    //{
+    //    foreach (var  go in m_spawnedScrap)
+    //    {
+    //        Vector2 uv = new Vector2(go.transform.position.x / 100, go.transform.position.z / 100);
+    //        var cur = go.transform.position;
+    //        cur.y = GetHeat(uv, m_heatMaterial.GetVector("_Offset"), m_heatMaterial.GetFloat("_Scale"), m_heatMaterial.GetFloat("_Deadzone"));
+    //        go.transform.position = cur;
+    //    }
+    //}
+    // USED FOR TESTING NOISE
+
+
     public void GenerateScrapSpawns()
     {
-        
-
-
         //RenderTexture doubleBufferRT = m_heatRenderTexture.GetDoubleBufferRenderTexture();
 
         //RenderTexture currentActiveRT = CustomRenderTexture.active;
@@ -82,6 +111,8 @@ public class ScrapSpawner : MonoBehaviour
         //Graphics.CopyTexture(doubleBufferRT, tex);
         //Color[] heatPixels = tex.GetPixels();
 
+        // ^^^unused
+
         Vector3[] vertices = m_scrapSpawnMesh.vertices;
         m_scrapSpawnMeshObject.transform.TransformPoints(vertices);
         Vector3 meshCenter = m_scrapSpawnMeshObject.transform.TransformPoint(m_scrapSpawnMesh.bounds.center);
@@ -90,23 +121,30 @@ public class ScrapSpawner : MonoBehaviour
         print("center: " + meshCenter);
         print("extents: " + meshExtents);
 
-
-
-        int idx = 0;
         foreach (var vertex in vertices)
         {
             Vector2 normalPos = new Vector2((vertex.x - meshCenter.x) / Mathf.Abs(meshExtents.x), (vertex.z - meshCenter.z) / Mathf.Abs(meshExtents.z));
-
             float heat = GetHeat(normalPos, m_heatMaterial.GetVector("_Offset"), m_heatMaterial.GetFloat("_Scale"), m_heatMaterial.GetFloat("_Deadzone"));
-            if (heat > 0)
-                m_spawnLocations.Add(vertex  + new Vector3(0, 5 * heat, 0));
             
-            idx++;
+            if (m_itemhax || Random.Range(0.0f, 1.0f) < heat)
+            {
+                m_spawnLocations.Add(vertex + new Vector3(0, 10 + 5 * heat, 0));
+            }
         }
-
-
     }
+
     public void PopulateSpawns()
+    {
+        if (!m_populateOverTime)
+        {
+            PopulateAllSpawns();
+        }
+        else
+        {
+            m_hasPopulatedSpawns = false;
+        }
+    }
+    public void PopulateAllSpawns()
     {
         if (m_scrapPrefabs.Length == 0)
         {
@@ -120,6 +158,28 @@ public class ScrapSpawner : MonoBehaviour
             GameObject spawnedPrefab = GameObject.Instantiate(m_scrapPrefabs[TheChosenOne], location, Quaternion.identity, m_scrapParent);
             m_spawnedScrap.Add(spawnedPrefab);
         }
+        m_hasPopulatedSpawns = true;
+    }
+
+    public void PopulateNextSpawn()
+    {
+        if (m_slowPopulationIndex >= m_spawnLocations.Count)
+        {
+            m_hasPopulatedSpawns = true;
+            return;
+        }
+        if (m_scrapPrefabs.Length == 0)
+        {
+            Debug.LogError("No Scrap Prefabs assigned");
+            return;
+        }
+        Vector3 location = m_spawnLocations[m_slowPopulationIndex];
+        
+        int TheChosenOne = Random.Range(0, m_scrapPrefabs.Length);
+
+        GameObject spawnedPrefab = GameObject.Instantiate(m_scrapPrefabs[TheChosenOne], location, Quaternion.identity, m_scrapParent);
+        m_spawnedScrap.Add(spawnedPrefab);
+        m_slowPopulationIndex++;
     }
 
     float fract(float f)
@@ -127,7 +187,7 @@ public class ScrapSpawner : MonoBehaviour
         return f - Mathf.Floor(f);
 
     }
-    Vector2 fract(Vector2 v)
+    Vector2 fract2(Vector2 v)
     {
         return new Vector2(fract(v.x), fract(v.y));
     }
@@ -146,7 +206,7 @@ public class ScrapSpawner : MonoBehaviour
 
     float unity_noise_randomValue(Vector2 uv)
     {
-        return fract(Mathf.Sin(Vector2.Dot(uv, new Vector2(12, 78))) * 43758);
+        return fract(Mathf.Sin(Vector2.Dot(uv, new Vector2(12, 78))) * 430);
     }
 
     float unity_noise_interpolate(float a, float b, float t)
@@ -156,16 +216,15 @@ public class ScrapSpawner : MonoBehaviour
 
     float unity_valueNoise(Vector2 uv)
     {
-        Vector2 i = floor(uv);
-        Vector2 fractUV = fract(uv);
-        Vector2 f = fract(uv);
-        f = f * f * new Vector2(3.0f - (2.0f * f).x, 3.0f - (2.0f * f).y);
+        float2 i = floor(uv);
+        float2 fractUV = fract2(uv);
+        float2 f = fract2(uv);
+        f = f * f * new float2(3 - (2 * f).x, 3 - (2 * f).y);
 
-        uv = abs(new Vector2(fractUV.x - 0.5f, fractUV.x - 0.5f));
-        Vector2 c0 = i + new Vector2(0.0f, 0.0f);
-        Vector2 c1 = i + new Vector2(1.0f, 0.0f);
-        Vector2 c2 = i + new Vector2(0.0f, 1.0f);
-        Vector2 c3 = i + new Vector2(1.0f, 1.0f);
+        float2 c0 = i + new float2(0, 0);
+        float2 c1 = i + new float2(1, 0);
+        float2 c2 = i + new float2(0, 1);
+        float2 c3 = i + new float2(1, 1);
         float r0 = unity_noise_randomValue(c0);
         float r1 = unity_noise_randomValue(c1);
         float r2 = unity_noise_randomValue(c2);
@@ -181,16 +240,16 @@ public class ScrapSpawner : MonoBehaviour
     {
         float t = 0.0f;
 
-        float freq = Mathf.Pow(2.0f, 0);
-        float amp = Mathf.Pow(0.5f, 3 - 0);
+        float freq = 1;
+        float amp = 0.125f;
         t += unity_valueNoise(new Vector2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
 
-        freq = Mathf.Pow(2.0f, 1);
-        amp = Mathf.Pow(0.5f, 3 - 1);
+        freq = 2;
+        amp = 0.25f;
         t += unity_valueNoise(new Vector2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
 
-        freq = Mathf.Pow(2.0f, 2);
-        amp = Mathf.Pow(0.5f, 3 - 2);
+        freq = 4;
+        amp = 0.5f;
         t += unity_valueNoise(new Vector2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
 
         float Out = t;
@@ -199,19 +258,10 @@ public class ScrapSpawner : MonoBehaviour
 
     float GetHeat(Vector2 uv, Vector4 offset, float scale, float deadzoneSize)
     {
-        //float deadzoneHeat = Mathf.Clamp01(Vector2.Distance(Vector2.zero, new Vector2((uv * 2f).x - 1f - deadzoneSize, (uv * 2f).y - 1f - deadzoneSize)));
-        //float f = 0;
-        //Unity_SimpleNoise_float(new Vector2(offset.x + uv.x, offset.y + uv.y), scale, out f);
-        //f -= 0.5f;
-        //f *= 10;
-        //float heat = (deadzoneHeat * f);
-        //return heat;
-
-
-        float deadzone = Mathf.Clamp01(Vector2.Distance(Vector2.zero, new Vector2((uv.x * 2) - 1, (uv.y * 2) - 1)) - deadzoneSize);
+        float deadzone = Mathf.Clamp01(Vector2.Distance(Vector2.zero, new Vector2(uv.x, uv.y)) - deadzoneSize);
         float f = 0f;
         Vector2 off = new Vector2(offset.x, offset.y);
-        f = Unity_SimpleNoise_float(uv + off, scale);
+        f = Unity_SimpleNoise_float(new float2(off.x + uv.x, off.y + uv.y), scale);
         f -= 0.5f;
         f *= 10;
         float heat = (deadzone * f);

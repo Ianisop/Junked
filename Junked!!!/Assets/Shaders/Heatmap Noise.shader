@@ -48,12 +48,12 @@ Shader "Unlit/Heatmap Noise"
 
             inline float unity_noise_randomValue (float2 uv)
             {
-                return fract(sin(dot(uv, float2(12, 78))) * 43758);
+                return fract(sin(dot(uv, float2(12, 78))) * 430);
             }
 
             inline float unity_noise_interpolate (float a, float b, float t)
             {
-                return (1.0-t)*a + (t*b);
+                return (1.0f-t)*a + (t*b);
             }
 
             inline float unity_valueNoise (float2 uv)
@@ -63,7 +63,6 @@ Shader "Unlit/Heatmap Noise"
                 float2 f = fract2(uv);
                 f = f * f * float2(3 - (2 * f).x, 3 - (2 * f).y);
 
-                uv = abs(float2(fractUV.x - 0.5f, fractUV.x - 0.5f));
                 float2 c0 = i + float2(0, 0);
                 float2 c1 = i + float2(1, 0);
                 float2 c2 = i + float2(0, 1);
@@ -83,17 +82,18 @@ Shader "Unlit/Heatmap Noise"
             {
                 float t = 0.0f;
 
-                float freq = pow(2.0f, 0);
-                float amp = pow(0.5f, 3 - 0);
+                float freq = 1;
+                float amp = 0.125f;
                 t += unity_valueNoise(float2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
 
-                freq = pow(2.0f, 1);
-                amp = pow(0.5f, 3 - 1);
+                freq = 2;
+                amp = 0.25f;
                 t += unity_valueNoise(float2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
 
-                freq = pow(2.0f, 2);
-                amp = pow(0.5f, 3 - 2);
+                freq = 4;
+                amp = 0.5f;
                 t += unity_valueNoise(float2(UV.x * Scale / freq, UV.y * Scale / freq)) * amp;
+
 
                 float Out = t;
                 return Out;
@@ -107,7 +107,7 @@ Shader "Unlit/Heatmap Noise"
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            float4 frag (v2f i) : SV_Target
             {
                 i.uv = 1 - i.uv;
 
