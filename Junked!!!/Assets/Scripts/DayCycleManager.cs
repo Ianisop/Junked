@@ -10,6 +10,7 @@ public class DayCycleManager : MonoBehaviour
     [SerializeField] private LightingPreset Preset;
     [SerializeField] private Animator clockAnimator;
     public QuotaSystem quotaSystem;
+    public ScrapSpawner scrapManager;
 
     //Variables
     [SerializeField, Range(0, 24)] private float TimeOfDay;
@@ -39,19 +40,17 @@ public class DayCycleManager : MonoBehaviour
         clockAnimator.SetFloat("minuteHand", ((timeElapsed % 60) / 60));
         clockAnimator.SetFloat("hourHand", ((TimeOfDay - startTime) / 8f));
 
-        if (!bypassReset && TimeOfDay >= 17) // Restarts the day if is has passed more than "17 o'clock"
+        if ((!bypassReset && TimeOfDay >= 17) || Input.GetKeyDown("9")) // Restarts the day if is has passed more than "17 o'clock"
         {
             print("Day Resetting");
             TimeOfDay = startTime;
             timeElapsed = 0;
             day += 1;
             quotaSystem.UpdateQuota(day);
-        }
-
-        // Ups the day by 1 for debugging
-        if (Input.GetKeyDown("9"))
-        {
-            day += 1;
+            scrapManager.CleanScrap();
+            scrapManager.RandomizeHeatmap();
+            scrapManager.GenerateScrapSpawns();
+            scrapManager.PopulateSpawns();
         }
 
         UpdateLighting(TimeOfDay / 24f);
