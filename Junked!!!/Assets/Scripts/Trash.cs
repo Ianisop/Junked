@@ -16,15 +16,18 @@ public enum TrashType
 
 
 
-public class Trash : MonoBehaviour
+public class Trash : PickUp
 {
     public static Trash Instance;
     public TrashType trashType;
     public float cleanliness;
+    public int CO2PrKg;
+    public int moneyValue;
     public ParticleSystem particles;
     public int weight;
     public PopUp popUp;
     public string name;
+    //public string actionKey;
 
     private void Awake()
     {
@@ -52,16 +55,18 @@ public class Trash : MonoBehaviour
     }
 
     //called when raycaster looks at it
-    public void UpdateUI()
+    public override void UpdateMe()
     {
         popUp.animator.SetBool("hover", true);
-        popUp.weight = weight;
-        popUp.type = trashType.ToString();
-        popUp.cleanliness = cleanliness;
-        popUp.text.text = popUp.name + "\n" + trashType.ToString() + "\n" + popUp.weight + "\n" + popUp.cleanliness;
+        popUp.text.text = popUp.name + "\n" + trashType.ToString() + "\n" + weight + "\n" + cleanliness;
         popUp.canvas.transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward, Camera.main.transform.up);
        
        
+
+    }
+    
+    public override void Interact()
+    {
 
     }
 

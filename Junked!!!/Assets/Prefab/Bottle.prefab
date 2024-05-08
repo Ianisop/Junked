@@ -177,8 +177,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: 4
   cleanliness: 0
+  CO2PrKg: 0.8
+  moneyValue: 20
   particles: {fileID: 0}
-  weight: 0
+  weight: 10
   popUp: {fileID: 0}
   name: Bottle
 --- !u!65 &6073485347070440075

@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8021896608491164471}
     m_Modifications:
+    - target: {fileID: 412352167655910437, guid: 5e30e881f5d84a949b2131c50cfca4aa, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4921378344826737713, guid: 5e30e881f5d84a949b2131c50cfca4aa, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -92,6 +96,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7728352568206045833, guid: 5e30e881f5d84a949b2131c50cfca4aa, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8822624601294755100, guid: 5e30e881f5d84a949b2131c50cfca4aa, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -166,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cardboard
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 340fde0b2b26a0244940acfe1ec8d08a, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -205,8 +221,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trashType: 3
   cleanliness: 0
+  CO2PrKg: 0.4
+  moneyValue: 10
   particles: {fileID: 0}
-  weight: 0
+  weight: 10
   popUp: {fileID: 0}
   name: Piece of Cardboard
 --- !u!65 &-3602533574477749035
