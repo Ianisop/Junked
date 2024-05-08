@@ -3,35 +3,41 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class OverlapBoxExample : MonoBehaviour
 {
     public LayerMask m_LayerMask;
     public BoxCollider m_Collider;
+    public List<Collider> objectsInside;
 
     void Start()
     {
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        MyCollisions();
+        if (Input.GetKeyDown("8"))
+        {
+            MyCollisions();
+
+        }
     }
 
     void MyCollisions()
     {
+        print("Checking collisions");
         //Use the OverlapBox to detect if there are any other colliders within this box area.
         //Use the GameObject's centre, half the size (as a radius) and rotation. This creates an invisible box around your GameObject.
-        Collider[] hitColliders = Physics.OverlapBox(m_Collider.center, m_Collider.size);
-        int i = 0;
+        Collider[] hitColliders = Physics.OverlapBox(transform.position + m_Collider.center, m_Collider.size, m_Collider.transform.rotation, 1 << LayerMask.NameToLayer("Pickup"));//
         //Check when there is a new collider coming into contact with the box
-        while (i < hitColliders.Length)
+        foreach (var a in hitColliders)
         {
             //Output all of the collider names
-            print("Hit : " + hitColliders[i].name + i);
+            print(a.name);
             //Increase the number of Colliders in the array
-            i++;
+            Destroy(a.gameObject);
         }
     }
 }
