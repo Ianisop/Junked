@@ -31,9 +31,9 @@ public class ScrapSpawner : MonoBehaviour
 
     int m_slowPopulationIndex = 0;
     [SerializeField] bool m_populateOverTime = true;
-    [SerializeField] bool m_hasPopulatedSpawns = true;
-
-    [SerializeField] bool m_manualPopulationStart = true;
+    [SerializeField] bool m_hasPopulatedSpawns = true; // make sure default is true
+    [SerializeField] bool m_manualPopulationStart = false;
+    [SerializeField] bool m_debug = false;
 
     void Start()
     {
@@ -52,6 +52,17 @@ public class ScrapSpawner : MonoBehaviour
 
         if (!m_hasPopulatedSpawns)
             PopulateNextSpawn();
+
+        if (m_debug) // you should probably only use this in the debug scene i made - reality
+        {
+            foreach (var go in m_spawnedScrap)
+            {
+                Vector2 uv = new Vector2(go.transform.position.x / 100, go.transform.position.z / 100);
+                var cur = go.transform.position;
+                cur.y = GetHeat(uv, m_heatMaterial.GetVector("_Offset"), m_heatMaterial.GetFloat("_Scale"), m_heatMaterial.GetFloat("_Deadzone"));
+                go.transform.position = cur;
+            }
+        }
     }
 
     public void InitRandom(int seed = 0)
@@ -61,14 +72,13 @@ public class ScrapSpawner : MonoBehaviour
 
         m_seedOffset.x = m_seed & 0b0101010101010101;
         m_seedOffset.y = m_seed & 0b1010101010101010;
-
     }
     public void RandomizeHeatmap()
     {
         if (m_bypassRandomization) return;
         m_seedOffset = m_seedOffset.normalized * ((m_seed % 10) + 10);
 
-        m_heatMaterial.SetVector("_Offset", new Vector4(m_seedOffset.x, m_seedOffset.y, 0, 0));
+        m_heatMaterial.SetVector("_Offset", new Vector4(m_seedOffset.x % 20, m_seedOffset.y % 20, 0, 0));
     }
 
     public void CleanScrap()
@@ -80,19 +90,6 @@ public class ScrapSpawner : MonoBehaviour
         m_spawnedScrap.Clear();
         m_spawnLocations.Clear();
     }
-
-    //public void Update()
-    //{
-    //    foreach (var  go in m_spawnedScrap)
-    //    {
-    //        Vector2 uv = new Vector2(go.transform.position.x / 100, go.transform.position.z / 100);
-    //        var cur = go.transform.position;
-    //        cur.y = GetHeat(uv, m_heatMaterial.GetVector("_Offset"), m_heatMaterial.GetFloat("_Scale"), m_heatMaterial.GetFloat("_Deadzone"));
-    //        go.transform.position = cur;
-    //    }
-    //}
-    // USED FOR TESTING NOISE
-
 
     public void GenerateScrapSpawns()
     {
