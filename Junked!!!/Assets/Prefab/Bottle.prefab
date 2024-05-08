@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0dd2c448f457840867794f62ee9635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionKey: 
   trashType: 4
   cleanliness: 0
   CO2PrKg: 0.8

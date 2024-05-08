@@ -47,10 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_Collider: {fileID: 4922912109971236729}
   objectsInside: []
   quotaSystem: {fileID: 0}
+  specificItem: 
 --- !u!65 &4922912109971236729
 BoxCollider:
   m_ObjectHideFlags: 0

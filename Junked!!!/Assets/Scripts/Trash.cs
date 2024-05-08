@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public enum TrashType
@@ -21,10 +22,10 @@ public class Trash : PickUp
     public static Trash Instance;
     public TrashType trashType;
     public float cleanliness;
-    public int CO2PrKg;
-    public int moneyValue;
+    public float CO2PrKg;
+    public float moneyValue;
     public ParticleSystem particles;
-    public int weight;
+    public float weight;
     public PopUp popUp;
     public string name;
     //public string actionKey;
@@ -36,6 +37,9 @@ public class Trash : PickUp
         particles = GetComponentInChildren<ParticleSystem>();
         popUp = this.AddComponent<PopUp>();
         popUp.Setup();
+
+        CO2PrKg *= weight;
+        moneyValue *= weight;
     }
 
     private void Start()

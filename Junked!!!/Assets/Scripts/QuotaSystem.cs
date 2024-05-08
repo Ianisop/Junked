@@ -5,10 +5,10 @@ using UnityEngine;
 public class QuotaSystem : MonoBehaviour
 {
     // Variables
-    public int moneyQuota = 100;
-    public int co2Quota = 1000;
-    public int currentMoney = 0;
-    public int currentCO2 = 0;
+    public float moneyQuota = 100;
+    public float co2Quota = 1000;
+    public float currentMoney = 0;
+    public float currentCO2 = 0;
 
     // Easy = 20, Medium = 16, Hard = 12
     // If slider, between 20 and 10.
@@ -23,19 +23,19 @@ public class QuotaSystem : MonoBehaviour
         {
             // TODO - This print statement needs to be visible ingame
             print("This trash-patch is from young people, who notoriously don't sort their garbage. Expect a higher quota");
-            moneyQuota = (int)(100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1));
-            co2Quota = (int)(1000 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1));
+            moneyQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
+            co2Quota = 1000 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
             print("Money Quota: " + moneyQuota + " + " + "CO2 Quota " + co2Quota);
         }
         else
         {
-            moneyQuota = (int)(100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0, 0.12f) + 1));
-            co2Quota = (int)(1000 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0, 0.12f) + 1));
+            moneyQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0, 0.12f) + 1);
+            co2Quota = 1000 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0, 0.12f) + 1);
             print("Money Quota: " + moneyQuota + " + " + "CO2 Quota " + co2Quota);
         } 
     }
 
-    public void AddValue(int moneyValue, int co2Value) // Function for adding new values in other scripts
+    public void AddValue(float moneyValue, float co2Value) // Function for adding new values in other scripts
     {
         currentMoney += moneyValue;
         currentCO2 += co2Value;

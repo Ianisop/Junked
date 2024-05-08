@@ -9,7 +9,7 @@ public class TrashBag : PickUp
     public GameObject[] trashPieces;
     UnityEngine.SceneManagement.Scene oldScene;
     public bool isOpen;
-    public int totalWeight, maxWeight;
+    public float totalWeight, maxWeight;
     public List<Trash> inventory = new List<Trash>();
     Color debugColor;
     public PopUp popUp;

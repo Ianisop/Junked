@@ -48,7 +48,9 @@ MonoBehaviour:
   Preset: {fileID: 11400000, guid: 0e6b1a9f521ee4141a93693b0e58f1cd, type: 2}
   clockAnimator: {fileID: 0}
   quotaSystem: {fileID: 0}
+  scrapManager: {fileID: 0}
   TimeOfDay: 0
   timeElapsed: 0
   startTime: 9
   day: 0
+  bypassReset: 0
