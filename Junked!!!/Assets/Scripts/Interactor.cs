@@ -6,12 +6,10 @@ public class Interactor : MonoBehaviour
 {
     //public GameObject currentTarget;
     public float range;
-    bool popUp;
-    public Material outlineMat;
-    Material oldMat; // Store the original material
     GameObject currentTarget;
     public LayerMask layerMask;
     public GameObject oldTarget;
+    PickUp trash;
 
     void Update()
     {
@@ -20,9 +18,11 @@ public class Interactor : MonoBehaviour
         if (Physics.Raycast(ray, out hit, range, layerMask))
         {
             currentTarget = hit.collider.gameObject;
-            Trash trash = hit.collider.gameObject.GetComponent<Trash>();
-            trash.UpdateUI();
-            
+            trash = hit.collider.gameObject.GetComponent<PickUp>();
+
+            trash.UpdateMe();
+            if(currentTarget.GetComponent<MeshRenderer>())currentTarget.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_Enabled", 1);
+            if(!currentTarget.GetComponent<MeshRenderer>())currentTarget.GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_Enabled", 1);
                 
         }
         else
@@ -30,11 +30,25 @@ public class Interactor : MonoBehaviour
             if(currentTarget)
             {
                 oldTarget = currentTarget;
-                currentTarget.GetComponent<Trash>().popUp.animator.SetBool("hover", false);
 
+                if(trash)trash.GetComponent<PopUp>().animator.SetBool("hover", false);
+
+                if (currentTarget.GetComponent<MeshRenderer>()) currentTarget.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_Enabled", 0);
+                if (!currentTarget.GetComponent<MeshRenderer>()) currentTarget.GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_Enabled", 0);
+
+                trash = null;
                 currentTarget = null;
             }
 
         }
+
+        if(currentTarget)
+        {
+            if (Input.GetButtonDown(trash.actionKey))
+            {
+                trash.Interact();
+            }
+        }
+
     }
 }

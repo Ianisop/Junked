@@ -1,26 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TrashBag : MonoBehaviour
+public class TrashBag : PickUp
 {
     public GameObject[] trashPieces;
     UnityEngine.SceneManagement.Scene oldScene;
     public bool isOpen;
-    public int totalWeight;
+    public int totalWeight, maxWeight;
     public List<Trash> inventory = new List<Trash>();
     Color debugColor;
     public PopUp popUp;
+    private Animator animator;
+   // public string actionKey;
     public void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
         isOpen = false;
+        popUp = this.AddComponent<PopUp>();
+        maxWeight = 15;
     }
 
     public void Start()
     {
         oldScene = SceneManager.GetActiveScene();
+        animator = GetComponent<Animator>();
+    
+        popUp.Setup();
     }
 
     public void Update()
@@ -45,6 +53,7 @@ public class TrashBag : MonoBehaviour
             }
         }
 
+        animator.SetBool("IsOpen", isOpen);
     }
 
     void OnDrawGizmos()
@@ -52,9 +61,17 @@ public class TrashBag : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + transform.forward, debugColor);
     }
 
+    public override void UpdateMe()
+    {
+        
+        popUp.animator.SetBool("hover", true);
+        popUp.text.text = "Black Hole\n" + totalWeight + "/" + maxWeight;
+        popUp.canvas.transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward, Camera.main.transform.up);
 
 
-    public void Interact()
+    }
+
+    public override void Interact()
     {
         isOpen = !isOpen;
 
@@ -79,11 +96,6 @@ public class TrashBag : MonoBehaviour
             trash.gameObject.SetActive(false);
         }
 
-
     }
-
-
-
-
 
 }
