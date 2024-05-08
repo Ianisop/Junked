@@ -21,6 +21,8 @@ public class ConsoleInputHandler : MonoBehaviour
 {
     public GameObject screen;
     public LayerMask rayMask;
+    public bool m_inAnimation;
+
     [SerializeField] GraphicRaycaster raycaster;
     [SerializeField] RectTransform canvasTransform;
     [SerializeField] CanvasScaler canvasScaler;
@@ -39,6 +41,8 @@ public class ConsoleInputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_inAnimation)
+            return;
 
         var cam = Camera.main;
         Ray camRay = new Ray(cam.transform.position, cam.transform.forward);
