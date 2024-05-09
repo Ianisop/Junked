@@ -15,7 +15,6 @@ public class DragRigidbody : MonoBehaviour
     Vector3 oldMousePos, mousePositionOffset;
     // Material variables
     Material originalMaterial;
-    public Material outlineMaterial;
     float rotateSpeed = 2;
     public LayerMask layerMask;
 
@@ -27,18 +26,22 @@ public class DragRigidbody : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKey(KeyCode.R))
+        if (!targetCamera)
+            return;
+
+        if (Input.GetKey(KeyCode.R))
         {
             Cursor.lockState = CursorLockMode.Confined;
             if (selectedRigidbody) selectedRigidbody.isKinematic = true;
+            PlayerMovement.Instance.enabled = false;
+
         }
-        if(!Input.GetKey(KeyCode.R))
+        else
         {
             Cursor.lockState = CursorLockMode.Locked;
             if (selectedRigidbody) selectedRigidbody.isKinematic = false;
+            PlayerMovement.Instance.enabled = true;
         }
-        if (!targetCamera)
-            return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -122,8 +125,8 @@ public class DragRigidbody : MonoBehaviour
         selectedRigidbody.gameObject.transform.Rotate(Camera.main.transform.up, mouseDelta.x * rotateSpeed, Space.World);
         selectedRigidbody.gameObject.transform.Rotate(Camera.main.transform.right, mouseDelta.y * rotateSpeed , Space.World);
 
-        
-        GameManager.Instance.playerColl.gameObject.GetComponent<PlayerMovement>().enabled = false;
+
+        PlayerMovement.Instance.gameObject.GetComponent<PlayerMovement>().enabled = false;
 
         oldMousePos = Input.mousePosition;
        // print(mouseDelta);
@@ -134,6 +137,6 @@ public class DragRigidbody : MonoBehaviour
         oldMousePos = mousePositionOffset;
 
         selectedRigidbody.velocity = (originalRigidbodyPos + mousePositionOffset - selectedRigidbody.transform.position) * forceAmount * Time.deltaTime;
-        GameManager.Instance.playerColl.gameObject.GetComponent<PlayerMovement>().enabled = true;
+        PlayerMovement.Instance.gameObject.GetComponent<PlayerMovement>().enabled = true;
     }
 }

@@ -15,12 +15,13 @@ using Random = UnityEngine.Random;
 public class ScrapSpawner : MonoBehaviour
 {
 
-    [SerializeField] GameObject[] m_scrapPrefabs;
+    public GameObject[] m_scrapPrefabs;
     [SerializeField] List<GameObject> m_spawnedScrap;
     [SerializeField] List<Vector3> m_spawnLocations;
     [SerializeField] Transform m_scrapParent;
 
     public int m_seed = 1337;
+    [SerializeField] bool m_randomizeSeed = true;
     [SerializeField] Vector2 m_seedOffset = Vector2.zero;
     [SerializeField] GameObject m_scrapSpawnMeshObject;
     Mesh m_scrapSpawnMesh;
@@ -29,29 +30,39 @@ public class ScrapSpawner : MonoBehaviour
     [SerializeField] bool m_itemhax = false;
 
 
-    int m_slowPopulationIndex = 0;
+    [SerializeField] int m_slowPopulationIndex = 0;
     [SerializeField] bool m_populateOverTime = true;
-    [SerializeField] bool m_hasPopulatedSpawns = true; // make sure default is true
+    [SerializeField] bool m_hasPopulatedSpawns = false;
     [SerializeField] bool m_manualPopulationStart = false;
     [SerializeField] bool m_debug = false;
 
     void Start()
     {
+        if (m_randomizeSeed)
+            m_seed = Random.Range(13371337, 69696969);
+
         m_scrapSpawnMesh = m_scrapSpawnMeshObject.GetComponent<MeshFilter>().sharedMesh;
         InitRandom(m_seed);
         RandomizeHeatmap();
         GenerateScrapSpawns();
         if (!m_manualPopulationStart)
+        {
             PopulateSpawns();
+        }
 
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-            m_hasPopulatedSpawns = false;
-
         if (!m_hasPopulatedSpawns)
-            PopulateNextSpawn();
+        {
+            if (m_manualPopulationStart)
+            {
+                if (Input.GetKeyDown(KeyCode.F))
+                    PopulateAllSpawns();
+            }
+            else
+                PopulateSpawns();
+        }
 
         if (m_debug) // you should probably only use this in the debug scene i made - reality
         {
@@ -89,6 +100,7 @@ public class ScrapSpawner : MonoBehaviour
         }
         m_spawnedScrap.Clear();
         m_spawnLocations.Clear();
+        m_slowPopulationIndex = 0;
     }
 
     public void GenerateScrapSpawns()
@@ -111,6 +123,11 @@ public class ScrapSpawner : MonoBehaviour
         // ^^^unused
 
         Vector3[] vertices = m_scrapSpawnMesh.vertices;
+        if (vertices.Length == 0)
+        {
+            Debug.LogException(new Exception("Scrap spawn mesh has 0 vertices, turn off \"Vertex Order\" optimization in the import settings"));
+        }
+
         m_scrapSpawnMeshObject.transform.TransformPoints(vertices);
         Vector3 meshCenter = m_scrapSpawnMeshObject.transform.TransformPoint(m_scrapSpawnMesh.bounds.center);
         Vector3 meshExtents = m_scrapSpawnMeshObject.transform.TransformPoint(m_scrapSpawnMesh.bounds.extents);
@@ -123,6 +140,8 @@ public class ScrapSpawner : MonoBehaviour
             Vector2 normalPos = new Vector2((vertex.x - meshCenter.x) / Mathf.Abs(meshExtents.x), (vertex.z - meshCenter.z) / Mathf.Abs(meshExtents.z));
             float heat = GetHeat(normalPos, m_heatMaterial.GetVector("_Offset"), m_heatMaterial.GetFloat("_Scale"), m_heatMaterial.GetFloat("_Deadzone"));
             
+            print(vertex + " : " + heat);
+            
             if (m_itemhax || Random.Range(0.0f, 1.0f) < heat)
             {
                 m_spawnLocations.Add(vertex + new Vector3(0, 10 + 5 * heat, 0));
@@ -132,13 +151,15 @@ public class ScrapSpawner : MonoBehaviour
 
     public void PopulateSpawns()
     {
-        if (!m_populateOverTime)
+        if (m_populateOverTime)
         {
-            PopulateAllSpawns();
+            print("populating next");
+            PopulateNextSpawn();
         }
         else
         {
-            m_hasPopulatedSpawns = false;
+            print("populating all");
+            PopulateAllSpawns();
         }
     }
     public void PopulateAllSpawns()

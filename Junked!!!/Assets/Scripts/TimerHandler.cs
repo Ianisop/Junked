@@ -54,7 +54,12 @@ public class Timer
 public class TimerHandler : MonoBehaviour
 {
     public List<Timer> timers;
+    public static TimerHandler Instance;
 
+    private void Awake()
+    {
+        if (Instance != this) Instance = this;
+    }
     void Update()
     {
         foreach (var timer in timers)

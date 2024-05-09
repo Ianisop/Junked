@@ -11,17 +11,16 @@ public class SellZone : MonoBehaviour
     public BoxCollider m_Collider;
     public List<Collider> objectsInside;
     public QuotaSystem quotaSystem;
-    public TrashType specificItem;
 
     void Update()
     {
         if (Input.GetKeyDown("8")) // TODO - Needs to run when pressing ingame button
         {
-            SellItemsInSellZone();
+            SellItemsInSellZone(TrashType.Plastic);
         }
     }
 
-    void SellItemsInSellZone()
+    void SellItemsInSellZone(TrashType type)
     {
         //print("Checking collisions");
         //Use the OverlapBox to detect if there are any other colliders within this box area.
@@ -30,7 +29,7 @@ public class SellZone : MonoBehaviour
         {
             var objectInGame = a.transform.GetComponent<Trash>();
             //Update quota
-            if (objectInGame.trashType == specificItem)
+            if (objectInGame.trashType == type)
             {
                 quotaSystem.AddValue(objectInGame.moneyValue, objectInGame.CO2PrKg);
                 print(objectInGame.name + " right type");

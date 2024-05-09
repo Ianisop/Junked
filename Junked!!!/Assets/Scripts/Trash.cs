@@ -51,9 +51,13 @@ public class Trash : PickUp
 
     void Update()   
     {
-        if (GameManager.Instance.trashBag.GetComponent<TrashBag>().isOpen && Vector3.Distance(this.transform.position, GameManager.Instance.trashBag.transform.position) <= 1 && GameManager.Instance.dragger.selectedRigidbody != GameManager.Instance.trashBag.GetComponent<Rigidbody>())
+        if (!TrashBag.Instance.dr.selectedRigidbody == this.GetComponent<Rigidbody>())
         {
-            GameManager.Instance.trashBag.GetComponent<TrashBag>().AddItem(this);
+            return;
+        }
+        if (TrashBag.Instance.isOpen && Vector3.Distance(this.transform.position, TrashBag.Instance.transform.position) <= 1 && TrashBag.Instance.dr.selectedRigidbody != TrashBag.Instance.GetComponent<Rigidbody>())
+        {
+            TrashBag.Instance.AddItem(this);
             
         }
     }
@@ -71,6 +75,16 @@ public class Trash : PickUp
     
     public override void Interact()
     {
+
+    }
+
+    public void CopyTo(Trash trash)
+    {
+        this.weight = trash.weight;
+        this.trashType = trash.trashType;
+        this.cleanliness = trash.cleanliness;
+        this.moneyValue = trash.moneyValue;
+        this.CO2PrKg = trash.CO2PrKg;
 
     }
 
