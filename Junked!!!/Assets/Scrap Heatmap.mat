@@ -98,5 +98,5 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 1, b: 0.44528174, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Offset: {r: 1.5334871, g: 14.921408, b: 0, a: 0}
+    - _Offset: {r: 4.931815, g: 9.832457, b: 0, a: 0}
   m_BuildTextureStacks: []
