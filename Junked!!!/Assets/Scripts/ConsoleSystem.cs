@@ -9,7 +9,9 @@ public class ConsoleSystem : MonoBehaviour
     [SerializeField] Transform m_player;
     [SerializeField] ConsoleInputHandler m_inputHandler;
     [SerializeField] Animator m_consoleAnimator;
-
+    [SerializeField] Animator m_consoleSellAnimator;
+    [SerializeField] int m_sellPagesCount;
+    [SerializeField] int m_currentSellPageIdx = 0;
     public void GoToMenu(string menuName)
     {
         switch (menuName.ToLower())
@@ -25,6 +27,24 @@ public class ConsoleSystem : MonoBehaviour
                 m_consoleAnimator.SetBool("Menu/Sell", true);
                 break;
         }
+    }
+
+    public void DeltaSellPage(int delta)
+    {
+        print("dlta " + delta);
+
+        if (m_currentSellPageIdx + delta < 0)
+        {
+            print("idx+dlta " + m_currentSellPageIdx + delta);
+            m_currentSellPageIdx = m_sellPagesCount + m_currentSellPageIdx + delta;
+        }
+        else
+            m_currentSellPageIdx += delta;
+
+        m_currentSellPageIdx = m_currentSellPageIdx % (m_sellPagesCount);
+
+        m_consoleSellAnimator.SetInteger("PageIndex", m_currentSellPageIdx);
+        print(m_currentSellPageIdx);
     }
 
     [SerializeField] GameObject theLove;
