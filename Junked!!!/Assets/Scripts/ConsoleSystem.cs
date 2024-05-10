@@ -29,13 +29,16 @@ public class ConsoleSystem : MonoBehaviour
         }
     }
 
+    public TrashType GetSelectedTrashType()
+    {
+        TrashType type = (TrashType)(m_currentSellPageIdx + 1);
+
+        return type;
+    }
     public void DeltaSellPage(int delta)
     {
-        print("dlta " + delta);
-
         if (m_currentSellPageIdx + delta < 0)
         {
-            print("idx+dlta " + m_currentSellPageIdx + delta);
             m_currentSellPageIdx = m_sellPagesCount + m_currentSellPageIdx + delta;
         }
         else

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8017271182749156363}
-  - component: {fileID: 6432091105813912773}
+  - component: {fileID: 888653983288840003}
   - component: {fileID: 4922912109971236729}
   m_Layer: 0
   m_Name: SellZone
@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 28}
---- !u!114 &6432091105813912773
+--- !u!114 &888653983288840003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -48,10 +48,9 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 0
-  m_Collider: {fileID: 4922912109971236729}
+  m_Collider: {fileID: 0}
   objectsInside: []
   quotaSystem: {fileID: 0}
-  specificItem: 0
 --- !u!65 &4922912109971236729
 BoxCollider:
   m_ObjectHideFlags: 0

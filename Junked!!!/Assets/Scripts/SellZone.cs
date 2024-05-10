@@ -11,17 +11,25 @@ public class SellZone : MonoBehaviour
     public BoxCollider m_Collider;
     public List<Collider> objectsInside;
     public QuotaSystem quotaSystem;
-
+    public ConsoleSystem consoleSystem;
     void Update()
     {
         if (Input.GetKeyDown("8")) // TODO - Needs to run when pressing ingame button
         {
-            SellItemsInSellZone(TrashType.Plastic);
+            SellItemsInSellZone();
         }
     }
 
-    void SellItemsInSellZone(TrashType type)
+    public void SellItemsInSellZone()
     {
+        TrashType type = consoleSystem.GetSelectedTrashType();
+        //TrashType.TryParse(1, out type);
+        if (type  == TrashType.None)
+        {
+            Debug.LogException(new System.Exception("Invalid TrashType in \"SellItemsInSellZone\""));
+        }
+        print("Selling: " + type);
+
         //print("Checking collisions");
         //Use the OverlapBox to detect if there are any other colliders within this box area.
         Collider[] hitColliders = Physics.OverlapBox(transform.position + m_Collider.center, m_Collider.size/2, m_Collider.transform.rotation, 1 << LayerMask.NameToLayer("Pickup"));
