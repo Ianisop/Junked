@@ -9,12 +9,13 @@ using UnityEngine;
 
 public enum TrashType
 {
-    Metal,
-    Glass,
-    Wood,
-    Cardboard,
-    Plastic
-}
+    None = 0,
+    Wood = 1,
+    Plastic = 2,
+    Metal = 3,
+    Glass = 4,
+    Cardboard = 5
+} // these need to be set in the order that they are set in the console ui
 
 
 
