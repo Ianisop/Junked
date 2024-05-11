@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -26,7 +27,7 @@ public class Trash : PickUp
     public float moneyValue;
     public ParticleSystem particles;
     public float weight;
-    public PopUp popUp;
+
     public string name;
     //public string actionKey;
 
@@ -34,9 +35,6 @@ public class Trash : PickUp
     {
         if(Instance == this)
             Instance = this; 
-        particles = GetComponentInChildren<ParticleSystem>();
-        popUp = this.AddComponent<PopUp>();
-        popUp.Setup();
 
         CO2PrKg *= weight;
         moneyValue *= weight;
@@ -44,8 +42,8 @@ public class Trash : PickUp
 
     private void Start()
     {
-        cleanliness = Random.Range(4, 10);
-        weight = Random.Range(3,15);
+        cleanliness = UnityEngine.Random.Range(4, 10);
+        weight = UnityEngine.Random.Range(3,15);
         
     }
 
@@ -60,22 +58,14 @@ public class Trash : PickUp
             TrashBag.Instance.AddItem(this);
             
         }
+        
     }
 
-    //called when raycaster looks at it
-    public override void UpdateMe()
-    {
-        popUp.animator.SetBool("hover", true);
-        popUp.text.text = popUp.name + "\n" + trashType.ToString() + "\n" + weight + "\n" + cleanliness;
-        popUp.canvas.transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward, Camera.main.transform.up);
-       
-       
-
-    }
     
     public override void Interact()
     {
-
+        cleanliness += UnityEngine.Random.Range(1, cleanliness);
+        Mathf.Clamp(cleanliness, 1, 10);
     }
 
     public void CopyTo(Trash trash)

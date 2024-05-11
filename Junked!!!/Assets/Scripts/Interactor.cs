@@ -20,7 +20,7 @@ public class Interactor : MonoBehaviour
             currentTarget = hit.collider.gameObject;
             trash = hit.collider.gameObject.GetComponent<PickUp>();
 
-            trash.UpdateMe();
+            PopUp.Instance.UpdatePopUp(currentTarget);
             if(currentTarget.GetComponent<MeshRenderer>())currentTarget.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_Enabled", 1);
             if(!currentTarget.GetComponent<MeshRenderer>())currentTarget.GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_Enabled", 1);
                 
@@ -31,7 +31,7 @@ public class Interactor : MonoBehaviour
             {
                 oldTarget = currentTarget;
 
-                if(trash)trash.GetComponent<PopUp>().animator.SetBool("hover", false);
+                if(trash)PopUp.Instance.animator.SetBool("hover", false);
 
                 if (currentTarget.GetComponent<MeshRenderer>()) currentTarget.GetComponent<MeshRenderer>().sharedMaterial.SetFloat("_Enabled", 0);
                 if (!currentTarget.GetComponent<MeshRenderer>()) currentTarget.GetComponent<SkinnedMeshRenderer>().sharedMaterial.SetFloat("_Enabled", 0);

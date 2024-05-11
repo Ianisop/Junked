@@ -13,7 +13,6 @@ public class TrashBag : PickUp
     public float totalWeight, maxWeight;
     public List<Trash> inventory = new List<Trash>();
     Color debugColor;
-    public PopUp popUp;
     private Animator animator;
     public ScrapSpawner __ss;
     public static TrashBag Instance;
@@ -23,7 +22,6 @@ public class TrashBag : PickUp
     {
         DontDestroyOnLoad(this.gameObject);
         isOpen = false;
-        popUp = this.AddComponent<PopUp>();
         maxWeight = 15;
         if (Instance != this) Instance = this;
     }
@@ -33,8 +31,6 @@ public class TrashBag : PickUp
         if(GetComponent<Rigidbody>() == null) { this.AddComponent<Rigidbody>(); }
         oldScene = SceneManager.GetActiveScene();
         animator = GetComponent<Animator>();
-    
-        popUp.Setup();
     }
 
     public void Update()
@@ -67,15 +63,7 @@ public class TrashBag : PickUp
         Debug.DrawLine(transform.position, transform.position + transform.forward, debugColor);
     }
 
-    public override void UpdateMe()
-    {
-        
-        popUp.animator.SetBool("hover", true);
-        popUp.text.text = "Black Hole\n" + totalWeight + "/" + maxWeight;
-        popUp.canvas.transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward, Camera.main.transform.up);
 
-
-    }
 
     public override void Interact()
     {
@@ -93,7 +81,7 @@ public class TrashBag : PickUp
             totalWeight += item.weight;
             inventory.Add(item);
 
-            item.gameObject.SetActive(false);
+            Destroy(item.gameObject);
         }
 
     }

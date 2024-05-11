@@ -132,8 +132,8 @@ public class ScrapSpawner : MonoBehaviour
         Vector3 meshCenter = m_scrapSpawnMeshObject.transform.TransformPoint(m_scrapSpawnMesh.bounds.center);
         Vector3 meshExtents = m_scrapSpawnMeshObject.transform.TransformPoint(m_scrapSpawnMesh.bounds.extents);
 
-        print("center: " + meshCenter);
-        print("extents: " + meshExtents);
+       // print("center: " + meshCenter);
+        //print("extents: " + meshExtents);
 
         foreach (var vertex in vertices)
         {
