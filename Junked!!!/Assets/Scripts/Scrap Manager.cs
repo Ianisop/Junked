@@ -57,7 +57,7 @@ public class ScrapSpawner : MonoBehaviour
         {
             if (m_manualPopulationStart)
             {
-                if (Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown("8"))
                     PopulateAllSpawns();
             }
             else
@@ -140,7 +140,7 @@ public class ScrapSpawner : MonoBehaviour
             Vector2 normalPos = new Vector2((vertex.x - meshCenter.x) / Mathf.Abs(meshExtents.x), (vertex.z - meshCenter.z) / Mathf.Abs(meshExtents.z));
             float heat = GetHeat(normalPos, m_heatMaterial.GetVector("_Offset"), m_heatMaterial.GetFloat("_Scale"), m_heatMaterial.GetFloat("_Deadzone"));
             
-            print(vertex + " : " + heat);
+            //print(vertex + " : " + heat);
             
             if (m_itemhax || Random.Range(0.0f, 1.0f) < heat)
             {
