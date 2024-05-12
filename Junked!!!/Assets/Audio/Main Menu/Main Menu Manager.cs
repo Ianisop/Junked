@@ -20,6 +20,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public static void LoadGameScene()
     {
+        print("loading game scene");
         SceneManager.LoadScene(instance.gameSceneName);
     }
 
