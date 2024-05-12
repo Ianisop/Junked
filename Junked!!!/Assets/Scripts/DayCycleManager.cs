@@ -12,6 +12,7 @@ public class DayCycleManager : MonoBehaviour
     public QuotaSystem quotaSystem;
     public ScrapSpawner scrapManager;
     public Signs signs;
+    public GameObject gameOverSign;
 
     //Variables
     [SerializeField, Range(0, 24)] private float TimeOfDay;
@@ -44,9 +45,9 @@ public class DayCycleManager : MonoBehaviour
             clockAnimator.SetFloat("hourHand", ((TimeOfDay - startTime) / 8f)); // Game runs over 8 hours from 9 to 17
         }
 
-        if ((!bypassReset && TimeOfDay >= 17) || Input.GetKeyDown("9")) // Restarts the day if is has passed more than "17 o'clock"
+        if ((!bypassReset && TimeOfDay >= 17)) // Restarts the day if is has passed more than "17 o'clock"
         {
-            if (!quotaSystem.CheckQuota()) // Checks if quota is met
+            if (quotaSystem.CheckQuota()) // Checks if quota is met
             {
                 // Restarts day and updates quota
                 print("Day Resetting");
@@ -66,8 +67,8 @@ public class DayCycleManager : MonoBehaviour
             }
             else
             {
-                // TODO - You lose the game
-                print("your cooked bruh");
+                TimeOfDay = startTime;
+                Instantiate(gameOverSign);
             }
         }
        
@@ -75,6 +76,14 @@ public class DayCycleManager : MonoBehaviour
         if (Input.GetKeyDown("9"))
         {
             TimeOfDay += 7;
+            
+        }
+        if (Input.GetKeyDown("1"))
+        {
+            quotaSystem.currentCO2 += 500;
+            quotaSystem.currentMoney += 500;
+            quotaSystem.UpdateQuotaUI();
+
         }
         UpdateLighting(TimeOfDay / 24f);
     }
