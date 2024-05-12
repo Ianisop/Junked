@@ -101,11 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionKey: e
   trashType: 2
-  cleanliness: 0
   CO2PrKg: 0.8
   moneyValue: 20
   particles: {fileID: 0}
-  weight: 10
+  weight: 20
   name: Bottle
 --- !u!65 &6073485347070440075
 BoxCollider:
