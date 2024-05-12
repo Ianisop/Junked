@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -20,7 +21,6 @@ public class TrashBag : PickUp
     // public string actionKey;
     public void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
         isOpen = false;
         if (Instance != this) Instance = this;
     }
@@ -42,17 +42,11 @@ public class TrashBag : PickUp
         }
 
        // print(GetComponent<Rigidbody>().velocity.sqrMagnitude);
-
-        debugColor = Color.red;
-
-        if(transform.forward.y < -0.8)
+        if (isOpen && GetComponent<Rigidbody>().velocity.sqrMagnitude >= 1 && inventory.Count > 0)
         {
-            debugColor = Color.green;
-            if (isOpen && GetComponent<Rigidbody>().velocity.sqrMagnitude >= 1.2 && inventory.Count > 0)
-            {
-                RemoveItem();
-            }
+            RemoveItem();
         }
+        
 
         animator.SetBool("IsOpen", isOpen);
     }
@@ -77,10 +71,11 @@ public class TrashBag : PickUp
             
         else
         {
+            print("added item: " + item.weight + item.name);
             totalWeight += item.weight;
             inventory.Add(item);
-
-            Destroy(item.gameObject);
+            if (inventory.Contains(item)) item.gameObject.SetActive(false);
+           
         }
 
     }
@@ -92,10 +87,8 @@ public class TrashBag : PickUp
         if(trash)
         {
             totalWeight -= trash.weight;
-            trash.transform.position = transform.position;
-            GameObject obj = Instantiate(__ss.m_scrapPrefabs[(int)trash.trashType], transform);
-            obj.AddComponent<Trash>();
-            trash.CopyTo(obj.GetComponent<Trash>());
+            trash.gameObject.SetActive(true);
+            trash.gameObject.transform.position = transform.position;
             inventory.Remove(trash);
             
             
