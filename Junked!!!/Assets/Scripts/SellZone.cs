@@ -12,13 +12,7 @@ public class SellZone : MonoBehaviour
     public List<Collider> objectsInside;
     public QuotaSystem quotaSystem;
     public ConsoleSystem consoleSystem;
-    void Update()
-    {
-        if (Input.GetKeyDown("8")) // TODO - Needs to run when pressing ingame button
-        {
-            SellItemsInSellZone();
-        }
-    }
+
 
     public void SellItemsInSellZone()
     {

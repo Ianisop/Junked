@@ -34,7 +34,7 @@ public class Trash : PickUp
 
     private void Awake()
     {
-        if(Instance == this)
+        if(Instance == null)
             Instance = this; 
 
         CO2PrKg *= weight;
