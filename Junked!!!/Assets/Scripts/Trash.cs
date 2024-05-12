@@ -38,7 +38,7 @@ public class Trash : PickUp
             Instance = this; 
 
         CO2PrKg *= weight;
-        moneyValue *= weight;
+        moneyValue *= weight/10;
     }
 
     private void Start()

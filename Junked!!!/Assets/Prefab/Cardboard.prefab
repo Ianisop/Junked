@@ -106,7 +106,7 @@ MonoBehaviour:
   trashType: 5
   cleanliness: 0
   CO2PrKg: 0.4
-  moneyValue: 10
+  moneyValue: 2
   particles: {fileID: 0}
   weight: 10
   name: Piece of Cardboard

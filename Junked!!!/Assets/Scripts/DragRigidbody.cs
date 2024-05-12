@@ -33,14 +33,14 @@ public class DragRigidbody : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Confined;
             if (selectedRigidbody) selectedRigidbody.isKinematic = true;
-            PlayerMovement.Instance.enabled = false;
+            PlayerMovement.Instance.canMove = false;
 
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             if (selectedRigidbody) selectedRigidbody.isKinematic = false;
-            PlayerMovement.Instance.enabled = true;
+            PlayerMovement.Instance.canMove = true;
         }
 
         if (Input.GetMouseButtonDown(0))

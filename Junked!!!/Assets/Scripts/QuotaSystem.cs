@@ -27,8 +27,7 @@ public class QuotaSystem : MonoBehaviour
         {
             moneyQuota = 100;
             co2Quota = 1000;
-            co2QuotaDisplay.text = "<size=2>CO2 Quota:\n" + currentCO2 + "kg/" + co2Quota + "kg";
-            moneyQuotaDisplay.text = "<size=2>Money Quota:\n" + currentMoney + "$/" + moneyQuota + "$";
+            UpdateQuotaUI();
             return;
         }
 
@@ -42,6 +41,7 @@ public class QuotaSystem : MonoBehaviour
             moneyQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
             co2Quota = 1000 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
             print("Money Quota: " + moneyQuota + " + " + "CO2 Quota " + co2Quota);
+
         }
         else
         {
@@ -49,8 +49,7 @@ public class QuotaSystem : MonoBehaviour
             co2Quota = 1000 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0, 0.12f) + 1);
             print("Money Quota: " + moneyQuota + " + " + "CO2 Quota " + co2Quota);
         }
-        co2QuotaDisplay.text = "<size=2>CO2 Quota:\n" + currentCO2 + "kg/" + co2Quota + "kg";
-        moneyQuotaDisplay.text = "<size=2>Money Quota:\n" + currentMoney + "$/" + moneyQuota + "$";
+        UpdateQuotaUI();
     }
 
     public void AddValue(float moneyValue, float co2Value) // Function for adding new values in other scripts
@@ -58,6 +57,7 @@ public class QuotaSystem : MonoBehaviour
         currentMoney += moneyValue;
         currentCO2 += co2Value;
         print("Current Money: " + currentMoney + " + " + "Current CO2 " + currentCO2);
+        UpdateQuotaUI();
     }
     
     public bool CheckQuota() // Checks if the current quotas are met and returns bool
@@ -67,5 +67,11 @@ public class QuotaSystem : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void UpdateQuotaUI()
+    {
+        co2QuotaDisplay.text = "<size=2>CO2 Quota:\n" + currentCO2 + "kg/" + co2Quota + "kg";
+        moneyQuotaDisplay.text = "<size=2>Money Quota:\n" + currentMoney + "$/" + moneyQuota + "$";
     }
 }

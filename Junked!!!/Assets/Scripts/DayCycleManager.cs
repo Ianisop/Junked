@@ -66,19 +66,10 @@ public class DayCycleManager : MonoBehaviour
         }
        
         // Ups time/day for debugging
-        /*if (Input.GetKeyDown("9"))
+        if (Input.GetKeyDown("9"))
         {
-            TimeOfDay += 10;
-            print("Day Resetting");
-            TimeOfDay = startTime;
-            timeElapsed = 0;
-            day += 1;
-            quotaSystem.UpdateQuota(day);
-            scrapManager.CleanScrap();
-            scrapManager.RandomizeHeatmap();
-            scrapManager.GenerateScrapSpawns();
-            scrapManager.PopulateSpawns();
-        }*/
+            TimeOfDay += 7;
+        }
         UpdateLighting(TimeOfDay / 24f);
     }
 

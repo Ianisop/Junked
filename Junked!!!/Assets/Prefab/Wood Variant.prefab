@@ -87,8 +87,8 @@ MonoBehaviour:
   actionKey: e
   trashType: 1
   cleanliness: 0
-  CO2PrKg: 0
-  moneyValue: 0
+  CO2PrKg: 1.5
+  moneyValue: 2
   particles: {fileID: 0}
   weight: 0
   name: Log
