@@ -35,7 +35,7 @@ public class QuotaSystem : MonoBehaviour
         // Just a random chance from 0-100%
         int chance = Random.Range(0, 100);
 
-        if (chance <= 10)
+        if (chance <= 30)
         {
             // TODO - This print statement needs to be visible ingame
             currentEventText.text = "This trash-patch is from young people, who notoriously don't sort their garbage. Expect a higher quota";
