@@ -23,7 +23,6 @@ public class Trash : PickUp
 {
     public static Trash Instance;
     public TrashType trashType;
-    public float cleanliness;
     public float CO2PrKg;
     public float moneyValue;
     public ParticleSystem particles;
@@ -43,8 +42,6 @@ public class Trash : PickUp
 
     private void Start()
     {
-        cleanliness = UnityEngine.Random.Range(4, 10);
-        weight = UnityEngine.Random.Range(3,15);
         
     }
 
@@ -65,15 +62,13 @@ public class Trash : PickUp
     
     public override void Interact()
     {
-        cleanliness += UnityEngine.Random.Range(1, cleanliness);
-        Mathf.Clamp(cleanliness, 1, 10);
+            
     }
 
     public void CopyTo(Trash trash)
     {
         this.weight = trash.weight;
         this.trashType = trash.trashType;
-        this.cleanliness = trash.cleanliness;
         this.moneyValue = trash.moneyValue;
         this.CO2PrKg = trash.CO2PrKg;
 

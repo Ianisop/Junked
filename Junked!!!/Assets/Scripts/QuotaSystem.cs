@@ -26,7 +26,7 @@ public class QuotaSystem : MonoBehaviour
         if(day == 0)
         {
             moneyQuota = 100;
-            co2Quota = 1000;
+            co2Quota = 150;
             UpdateQuotaUI();
             return;
         }
@@ -39,14 +39,14 @@ public class QuotaSystem : MonoBehaviour
             // TODO - This print statement needs to be visible ingame
             print("This trash-patch is from young people, who notoriously don't sort their garbage. Expect a higher quota");
             moneyQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
-            co2Quota = 1000 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
+            co2Quota = 150 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
             print("Money Quota: " + moneyQuota + " + " + "CO2 Quota " + co2Quota);
 
         }
         else
         {
             moneyQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0, 0.12f) + 1);
-            co2Quota = 1000 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0, 0.12f) + 1);
+            co2Quota = 150 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0, 0.12f) + 1);
             print("Money Quota: " + moneyQuota + " + " + "CO2 Quota " + co2Quota);
         }
         UpdateQuotaUI();

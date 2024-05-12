@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 3407110750710927883}
   - component: {fileID: 8570312361662648520}
   - component: {fileID: 278628756631264818}
-  - component: {fileID: 6073485347070440075}
   - component: {fileID: 179664879885338154}
   - component: {fileID: 7390137381696229599}
+  - component: {fileID: 7920681543386972204}
   m_Layer: 10
-  m_Name: Bottle
+  m_Name: Screw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7379986672472488433}
-  m_Mesh: {fileID: 6121590469811200223, guid: 2a208e5664683dc40bfcc0f1234f3070, type: 3}
+  m_Mesh: {fileID: -7019499404158029721, guid: 5091ce4d44ee764459a0420f039dc3bd, type: 3}
 --- !u!23 &8570312361662648520
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: de50030caebfe894b90ba9b791b68877, type: 2}
+  - {fileID: 2100000, guid: 64483ee58785d6c47aba5642176fd58a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,34 +100,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionKey: e
-  trashType: 2
-  cleanliness: 0
-  CO2PrKg: 0.8
-  moneyValue: 2
+  trashType: 3
+  CO2PrKg: 4
+  moneyValue: 20
   particles: {fileID: 0}
   weight: 10
-  name: Bottle
---- !u!65 &6073485347070440075
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7379986672472488433}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.12804984, y: 0.12804984, z: 0.31012002}
-  m_Center: {x: -0.000000007450581, y: 0.0000000037252899, z: 0.15682198}
+  name: Screw
 --- !u!54 &179664879885338154
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -177,3 +155,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &7920681543386972204
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7379986672472488433}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3047989, y: 0.43741608, z: 0.20368436}
+  m_Center: {x: -0.059751295, y: -0.0065935096, z: 0.101287186}

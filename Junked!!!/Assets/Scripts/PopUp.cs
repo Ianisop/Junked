@@ -48,7 +48,7 @@ public class PopUp : MonoBehaviour
         if (trash)
         {
             animator.SetBool("hover", true);
-            text.text = trash.name + "\n" + trash.trashType.ToString() + "\n" + trash.weight + "\n" + trash.cleanliness;
+            text.text = trash.trashType.ToString() + "\n" + trash.weight + " kg\n" + trash.CO2PrKg + " CO2\n" + trash.moneyValue + " $";
         }
         else
         {
@@ -56,7 +56,7 @@ public class PopUp : MonoBehaviour
             if(bag)
             {
                 animator.SetBool("hover", true);
-                text.text = "Trash Bag\n" + bag.totalWeight + "/" + bag.maxWeight;
+                text.text = "Trash Bag\n" + bag.totalWeight + "kg / " + bag.maxWeight + "kg";
 
 
             }
