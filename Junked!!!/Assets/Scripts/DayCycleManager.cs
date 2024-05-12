@@ -68,22 +68,24 @@ public class DayCycleManager : MonoBehaviour
             else
             {
                 TimeOfDay = startTime;
+                signs.RemoveSigns();
+                scrapManager.CleanScrap();
                 Instantiate(gameOverSign);
             }
         }
        
         // Ups time/day for debugging
-        if (Input.GetKeyDown("9"))
-        {
-            TimeOfDay += 7;
-            
-        }
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("8"))
         {
             quotaSystem.currentCO2 += 500;
             quotaSystem.currentMoney += 500;
             quotaSystem.UpdateQuotaUI();
 
+        }
+        if (Input.GetKeyDown("9"))
+        {
+            TimeOfDay += 7;
+            
         }
         UpdateLighting(TimeOfDay / 24f);
     }

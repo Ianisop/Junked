@@ -48,7 +48,7 @@ public class PopUp : MonoBehaviour
         if (trash)
         {
             animator.SetBool("hover", true);
-            text.text = trash.trashType.ToString() + "\n" + trash.weight + " kg\n" + trash.CO2PrKg + " CO2\n" + trash.moneyValue + " $";
+            text.text = trash.trashType.ToString() + "\n" + trash.weight + " kg\n" + trash.CO2PrKg + " CO2/Kg\n" + trash.moneyValue + " $";
         }
         else
         {

@@ -37,7 +37,6 @@ public class QuotaSystem : MonoBehaviour
 
         if (chance <= 30)
         {
-            // TODO - This print statement needs to be visible ingame
             currentEventText.text = "This trash-patch is from young people, who notoriously don't sort their garbage. Expect a higher quota";
 
             moneyQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
