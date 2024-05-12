@@ -10,7 +10,7 @@ public class QuotaSystem : MonoBehaviour
     public float co2Quota = 1000;
     public float currentMoney = 0;
     public float currentCO2 = 0;
-    public TMP_Text co2QuotaDisplay, moneyQuotaDisplay;
+    public TMP_Text co2QuotaDisplay, moneyQuotaDisplay, currentEventText;
 
     // Easy = 20, Medium = 16, Hard = 12
     // If slider, between 20 and 10.
@@ -19,6 +19,7 @@ public class QuotaSystem : MonoBehaviour
     private void Start()
     {
         UpdateQuota(0);
+        currentEventText.text = "";
     }
 
     public void UpdateQuota(int day) // Updates the quota and handles random events
@@ -37,10 +38,14 @@ public class QuotaSystem : MonoBehaviour
         if (chance <= 10)
         {
             // TODO - This print statement needs to be visible ingame
-            print("This trash-patch is from young people, who notoriously don't sort their garbage. Expect a higher quota");
+            currentEventText.text = "This trash-patch is from young people, who notoriously don't sort their garbage. Expect a higher quota";
+
             moneyQuota = 100 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
             co2Quota = 150 * (1 + Mathf.Pow(day, 2) / difficulty) * (Random.Range(0.25f, 0.5f) + 1);
             print("Money Quota: " + moneyQuota + " + " + "CO2 Quota " + co2Quota);
+
+
+            StartCoroutine(eventDisplayTime());
 
         }
         else
@@ -73,5 +78,12 @@ public class QuotaSystem : MonoBehaviour
     {
         co2QuotaDisplay.text = "<size=2>CO2 Quota:\n" + (int)currentCO2 + "kg/" + (int)co2Quota + "kg";
         moneyQuotaDisplay.text = "<size=2>Money Quota:\n" + (int)currentMoney + "$/" + (int)moneyQuota + "$";
+    }
+
+    public IEnumerator eventDisplayTime()
+    {
+        yield return new WaitForSeconds(10);
+        currentEventText.text = "";
+        yield return null;
     }
 }

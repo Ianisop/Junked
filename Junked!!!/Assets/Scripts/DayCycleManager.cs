@@ -52,6 +52,7 @@ public class DayCycleManager : MonoBehaviour
                 TimeOfDay = startTime;
                 timeElapsed = 0;
                 day += 1;
+                quotaSystem.currentCO2 = 0;
                 quotaSystem.UpdateQuota(day);
                 scrapManager.CleanScrap();
                 scrapManager.RandomizeHeatmap();
