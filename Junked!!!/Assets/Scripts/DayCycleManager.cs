@@ -53,6 +53,10 @@ public class DayCycleManager : MonoBehaviour
                 timeElapsed = 0;
                 day += 1;
                 quotaSystem.UpdateQuota(day);
+                scrapManager.CleanScrap();
+                scrapManager.RandomizeHeatmap();
+                scrapManager.GenerateScrapSpawns();
+                scrapManager.PopulateSpawns();
             }
             else
             {
@@ -62,7 +66,7 @@ public class DayCycleManager : MonoBehaviour
         }
        
         // Ups time/day for debugging
-        if (Input.GetKeyDown("9"))
+        /*if (Input.GetKeyDown("9"))
         {
             TimeOfDay += 10;
             print("Day Resetting");
@@ -74,7 +78,7 @@ public class DayCycleManager : MonoBehaviour
             scrapManager.RandomizeHeatmap();
             scrapManager.GenerateScrapSpawns();
             scrapManager.PopulateSpawns();
-        }
+        }*/
         UpdateLighting(TimeOfDay / 24f);
     }
 

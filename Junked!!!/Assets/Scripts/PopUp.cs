@@ -56,7 +56,7 @@ public class PopUp : MonoBehaviour
             if(bag)
             {
                 animator.SetBool("hover", true);
-                text.text = "Black Hole\n" + bag.totalWeight + "/" + bag.maxWeight;
+                text.text = "Trash Bag\n" + bag.totalWeight + "/" + bag.maxWeight;
 
 
             }

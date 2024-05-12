@@ -22,7 +22,6 @@ public class TrashBag : PickUp
     {
         DontDestroyOnLoad(this.gameObject);
         isOpen = false;
-        maxWeight = 15;
         if (Instance != this) Instance = this;
     }
 

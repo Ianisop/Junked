@@ -57,8 +57,8 @@ public class ScrapSpawner : MonoBehaviour
         {
             if (m_manualPopulationStart)
             {
-                if (Input.GetKeyDown("8"))
-                    PopulateAllSpawns();
+                /*if (Input.GetKeyDown("8"))
+                    PopulateAllSpawns();*/
             }
             else
                 PopulateSpawns();
