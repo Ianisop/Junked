@@ -153,12 +153,12 @@ public class ScrapSpawner : MonoBehaviour
     {
         if (m_populateOverTime)
         {
-            print("populating next");
+            //print("populating next");
             PopulateNextSpawn();
         }
         else
         {
-            print("populating all");
+            //print("populating all");
             PopulateAllSpawns();
         }
     }

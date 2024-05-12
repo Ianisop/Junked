@@ -11,6 +11,7 @@ public class DayCycleManager : MonoBehaviour
     [SerializeField] private Animator clockAnimator;
     public QuotaSystem quotaSystem;
     public ScrapSpawner scrapManager;
+    public Signs signs;
 
     //Variables
     [SerializeField, Range(0, 24)] private float TimeOfDay;
@@ -58,6 +59,10 @@ public class DayCycleManager : MonoBehaviour
                 scrapManager.RandomizeHeatmap();
                 scrapManager.GenerateScrapSpawns();
                 scrapManager.PopulateSpawns();
+                if(day >= 1)
+                {
+                    signs.RemoveSigns();
+                }
             }
             else
             {
