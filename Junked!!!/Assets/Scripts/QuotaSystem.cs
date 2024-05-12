@@ -62,7 +62,7 @@ public class QuotaSystem : MonoBehaviour
     
     public bool CheckQuota() // Checks if the current quotas are met and returns bool
     {
-        if (currentMoney >= moneyQuota && currentCO2 >= co2Quota)
+        if ((int)currentMoney >= (int)moneyQuota && (int)currentCO2 >= (int)co2Quota)
         {
             return true;
         }
@@ -71,7 +71,7 @@ public class QuotaSystem : MonoBehaviour
 
     public void UpdateQuotaUI()
     {
-        co2QuotaDisplay.text = "<size=2>CO2 Quota:\n" + currentCO2 + "kg/" + co2Quota + "kg";
-        moneyQuotaDisplay.text = "<size=2>Money Quota:\n" + currentMoney + "$/" + moneyQuota + "$";
+        co2QuotaDisplay.text = "<size=2>CO2 Quota:\n" + (int)currentCO2 + "kg/" + (int)co2Quota + "kg";
+        moneyQuotaDisplay.text = "<size=2>Money Quota:\n" + (int)currentMoney + "$/" + (int)moneyQuota + "$";
     }
 }

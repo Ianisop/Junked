@@ -41,8 +41,9 @@ public class TrashBag : PickUp
             
         }
 
-       // print(GetComponent<Rigidbody>().velocity.sqrMagnitude);
-        if (isOpen && GetComponent<Rigidbody>().velocity.sqrMagnitude >= 1 && inventory.Count > 0)
+        // print(GetComponent<Rigidbody>().velocity.sqrMagnitude);
+        if (isOpen && GetComponent<Rigidbody>().velocity.sqrMagnitude >= 40 && inventory.Count > 0)
+
         {
             RemoveItem();
         }
@@ -54,8 +55,8 @@ public class TrashBag : PickUp
     void OnDrawGizmos()
     {
         Debug.DrawLine(transform.position, transform.position + transform.forward, debugColor);
+        Debug.DrawLine(transform.position, transform.position + GetComponent<Rigidbody>().velocity);
     }
-
 
 
     public override void Interact()

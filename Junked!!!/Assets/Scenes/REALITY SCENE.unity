@@ -2145,6 +2145,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2685228922767548804, guid: 34f6b1a85cb3ed14088a623585fe2362, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 4423629695753093957, guid: 34f6b1a85cb3ed14088a623585fe2362, type: 3}
       propertyPath: dr
       value: 
@@ -2658,12 +2662,6 @@ MonoBehaviour:
   lookXLimit: 89
   currentStamina: 0
   maxStamina: 0
-  staminaTimer:
-    duration: 0
-    currentTime: 0
-    name: 
-    isDone: 1
-    active: 0
   canMove: 1
 --- !u!136 &1183690966
 CapsuleCollider:
