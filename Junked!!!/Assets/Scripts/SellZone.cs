@@ -31,6 +31,7 @@ public class SellZone : MonoBehaviour
         {
             var objectInGame = a.transform.GetComponent<Trash>();
             //Update quota
+            if (objectInGame == null) continue;
             if (objectInGame.trashType == type)
             {
                 quotaSystem.AddValue(objectInGame.moneyValue, objectInGame.CO2PrKg);

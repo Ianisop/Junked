@@ -63,6 +63,8 @@ public class Trash : PickUp
     public override void Interact()
     {
             
+     //   cleanliness += UnityEngine.Random.Range(1, cleanliness);
+       // Mathf.Clamp(cleanliness, 1, 10);
     }
 
     public void CopyTo(Trash trash)

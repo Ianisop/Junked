@@ -28,7 +28,7 @@ public class DragRigidbody : MonoBehaviour
     {
         if (!targetCamera)
             return;
-
+        /*
         if (Input.GetKey(KeyCode.R))
         {
             Cursor.lockState = CursorLockMode.Confined;
@@ -42,6 +42,7 @@ public class DragRigidbody : MonoBehaviour
             if (selectedRigidbody) selectedRigidbody.isKinematic = false;
             PlayerMovement.Instance.canMove = true;
         }
+        */
 
         if (Input.GetMouseButtonDown(0))
         {

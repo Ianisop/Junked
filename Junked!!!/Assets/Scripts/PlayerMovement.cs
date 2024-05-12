@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
     public float currentStamina, maxStamina;
-    public Timer staminaTimer;
-    public Image staminaImage;
+   // public Timer staminaTimer;
+    //public Image staminaImage;
     public static PlayerMovement Instance;
 
     CharacterController characterController;
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        TimerHandler.Instance.AddTimer(staminaTimer, false);
+        //TimerHandler.Instance.AddTimer(staminaTimer, false);
         // Lock cursor
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
         }
-
+        /*
         if(characterController.velocity.magnitude > 0.1)
         {
             staminaTimer.duration = 0.9f * TrashBag.Instance.totalWeight;
@@ -100,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
                 staminaTimer.RestartTimer();
             }
         }
+        */
         //fill stamina image
 
 
