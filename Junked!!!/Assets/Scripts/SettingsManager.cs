@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class SettingsManager : MonoBehaviour
 {
     static SettingsManager instance;
-    SettingsMenu menu;
+    public SettingsMenu menu;
+    public bool reloadChanges = false;
+
     private void Awake()
     {
         if (instance == null)
@@ -16,34 +18,55 @@ public class SettingsManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        menu = FindFirstObjectByType<SettingsMenu>();
+        instance.reloadChanges = true;
+        instance.menu = FindFirstObjectByType<SettingsMenu>();
+
+        if (instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
-    private void Start()
+
+    private void Update()
+    {
+        if (reloadChanges)
+        {
+            ReloadChanges();
+        }
+    }
+    void ReloadChanges()
     {
         if (menu != null)
         {
             foreach (AudioSlider slider in menu.audioSliders)
             {
-                if (audioLevels.ContainsKey(slider.channel))
+                string channel = slider.channel.ToLower();
+                if (audioLevels.ContainsKey(channel))
                 {
-                    slider.GetComponent<Slider>().value = audioLevels[slider.channel];
+                    slider.GetComponent<Slider>().value = audioLevels[channel];
                 }
             }
         }
+        reloadChanges = false;
     }
 
-    [SerializeField]
-    AudioMixer audioMixer;
-    Dictionary<string, float> audioLevels = new Dictionary<string, float>();
+    [SerializeField] AudioMixer audioMixer;
+    [SerializeField] Dictionary<string, float> audioLevels = new Dictionary<string, float>();
     public static void SetAudioLevel(string channel, float level)
     {
+        channel = channel.ToLower();
         if (!instance.audioLevels.ContainsKey(channel))
         {
+            print("creating audiolevel entry");
             instance.audioLevels.Add(channel, level);
         }
         else
+        {
             instance.audioLevels[channel] = level;
+            print("setting audiolevel entry");
+        }
 
+        instance.audioMixer.SetFloat(channel, Mathf.Log10(instance.audioLevels[channel]) * 20f);
     }
 
     public static void applySettings()
