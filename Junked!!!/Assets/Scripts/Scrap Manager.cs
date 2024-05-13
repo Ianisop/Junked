@@ -28,7 +28,7 @@ public class ScrapSpawner : MonoBehaviour
     [SerializeField] bool m_bypassRandomization = false;
     [SerializeField] bool m_itemhax = false;
 
-
+    [SerializeField] float m_spawnRarity = 0.5f;
     [SerializeField] int m_slowPopulationIndex = 0;
     [SerializeField] bool m_populateOverTime = true;
     [SerializeField] bool m_hasPopulatedSpawns = false;
@@ -52,6 +52,7 @@ public class ScrapSpawner : MonoBehaviour
     }
     private void Update()
     {
+        UnityEngine.Cursor.lockState = CursorLockMode.Confined;
         if (!m_hasPopulatedSpawns)
         {
             if (m_manualPopulationStart)
@@ -141,7 +142,7 @@ public class ScrapSpawner : MonoBehaviour
             
             //print(vertex + " : " + heat);
             
-            if (m_itemhax || Random.Range(0.0f, 1.0f) < heat)
+            if (m_itemhax || (Random.Range(0.0f, 1.0f) < heat && Random.Range(0.0f, 1.0f) < m_spawnRarity))
             {
                 m_spawnLocations.Add(vertex + new Vector3(0, 10 + 5 * heat, 0));
             }

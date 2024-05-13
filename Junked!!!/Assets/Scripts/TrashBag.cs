@@ -31,6 +31,8 @@ public class TrashBag : PickUp
         animator = GetComponent<Animator>();
     }
 
+
+    float timeSinceLastDrop = 0.0f;
     public void Update()
     {
         if (oldScene != SceneManager.GetActiveScene())
@@ -41,9 +43,10 @@ public class TrashBag : PickUp
         }
 
         // print(GetComponent<Rigidbody>().velocity.sqrMagnitude);
-        if (isOpen && GetComponent<Rigidbody>().velocity.sqrMagnitude >= 40 && inventory.Count > 0)
-
+        timeSinceLastDrop += Time.deltaTime;
+        if (isOpen && timeSinceLastDrop > 0.25f && GetComponent<Rigidbody>().velocity.sqrMagnitude >= 40 && inventory.Count > 0)
         {
+            timeSinceLastDrop = 0.0f;
             RemoveItem();
         }
         
