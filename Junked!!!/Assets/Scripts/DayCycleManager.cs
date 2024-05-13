@@ -54,7 +54,9 @@ public class DayCycleManager : MonoBehaviour
                 TimeOfDay = startTime;
                 timeElapsed = 0;
                 day += 1;
-                quotaSystem.currentCO2 = 0;
+                quotaSystem.currentCO2 -= quotaSystem.co2Quota;
+                quotaSystem.currentCO2 -= quotaSystem.currentCO2/2;
+                quotaSystem.currentMoney -= quotaSystem.moneyQuota;
                 quotaSystem.UpdateQuota(day);
                 scrapManager.CleanScrap();
                 scrapManager.RandomizeHeatmap();
@@ -74,7 +76,7 @@ public class DayCycleManager : MonoBehaviour
             }
         }
        
-        // Ups time/day for debugging
+        // Adds money for debugging
         if (Input.GetKeyDown("8"))
         {
             quotaSystem.currentCO2 += 500;
@@ -82,6 +84,7 @@ public class DayCycleManager : MonoBehaviour
             quotaSystem.UpdateQuotaUI();
 
         }
+        // Ups time/day for debugging
         if (Input.GetKeyDown("9"))
         {
             TimeOfDay += 7;
