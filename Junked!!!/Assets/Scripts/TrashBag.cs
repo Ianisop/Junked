@@ -35,12 +35,6 @@ public class TrashBag : PickUp
     float timeSinceLastDrop = 0.0f;
     public void Update()
     {
-        if (oldScene != SceneManager.GetActiveScene())
-        {
-            oldScene = SceneManager.GetActiveScene();
-            transform.position = new Vector3(0,2,0);
-            
-        }
 
         // print(GetComponent<Rigidbody>().velocity.sqrMagnitude);
         timeSinceLastDrop += Time.deltaTime;
