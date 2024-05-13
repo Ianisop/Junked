@@ -52,7 +52,6 @@ public class ScrapSpawner : MonoBehaviour
     }
     private void Update()
     {
-        UnityEngine.Cursor.lockState = CursorLockMode.Confined;
         if (!m_hasPopulatedSpawns)
         {
             if (m_manualPopulationStart)
