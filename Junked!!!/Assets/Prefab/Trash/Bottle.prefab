@@ -104,7 +104,7 @@ MonoBehaviour:
   CO2PrKg: 0.8
   moneyValue: 20
   particles: {fileID: 0}
-  weight: 20
+  weight: 5
   name: Bottle
 --- !u!65 &6073485347070440075
 BoxCollider:

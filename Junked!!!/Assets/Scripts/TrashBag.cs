@@ -99,4 +99,9 @@ public class TrashBag : PickUp
 
     }
 
+    public void IncreaseTrashBagSize(int extraSize)
+    {
+        maxWeight += extraSize;
+    }
+
 }

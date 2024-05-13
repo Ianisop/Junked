@@ -13,6 +13,7 @@ public class DayCycleManager : MonoBehaviour
     public ScrapSpawner scrapManager;
     public Signs signs;
     public GameObject gameOverSign;
+    public TrashBag trashbag;
 
     //Variables
     [SerializeField, Range(0, 24)] private float TimeOfDay;
@@ -62,6 +63,7 @@ public class DayCycleManager : MonoBehaviour
                 scrapManager.RandomizeHeatmap();
                 scrapManager.GenerateScrapSpawns();
                 scrapManager.PopulateSpawns();
+                trashbag.IncreaseTrashBagSize(5);
                 if(day >= 1)
                 {
                     signs.RemoveSigns();
